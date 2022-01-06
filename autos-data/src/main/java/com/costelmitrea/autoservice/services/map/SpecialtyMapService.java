@@ -1,7 +1,7 @@
-package com.costelmitrea.autoservice.service.map;
+package com.costelmitrea.autoservice.services.map;
 
 import com.costelmitrea.autoservice.model.Specialty;
-import com.costelmitrea.autoservice.service.SpecialtyService;
+import com.costelmitrea.autoservice.services.SpecialtyService;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;

@@ -1,4 +1,4 @@
-package com.costelmitrea.autoservice.repository;
+package com.costelmitrea.autoservice.repositories;
 
 import com.costelmitrea.autoservice.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;

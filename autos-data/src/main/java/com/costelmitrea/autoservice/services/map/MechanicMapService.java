@@ -1,8 +1,8 @@
-package com.costelmitrea.autoservice.service.map;
+package com.costelmitrea.autoservice.services.map;
 
 import com.costelmitrea.autoservice.model.Mechanic;
-import com.costelmitrea.autoservice.service.MechanicService;
-import com.costelmitrea.autoservice.service.SpecialtyService;
+import com.costelmitrea.autoservice.services.MechanicService;
+import com.costelmitrea.autoservice.services.SpecialtyService;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
@@ -19,6 +19,15 @@ public class MechanicMapService extends AbstractMapService<Mechanic, Long> imple
     @Override
     public Mechanic findById(Long id) {
         return super.findById(id);
+    }
+
+    @Override
+    public Mechanic findByLastName(String lastName) {
+        return this.findAll()
+                .stream()
+                .filter(mechanic -> mechanic.getLastName().equalsIgnoreCase(lastName))
+                .findFirst()
+                .orElse(null);
     }
 
     @Override

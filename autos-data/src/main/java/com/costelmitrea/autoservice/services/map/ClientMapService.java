@@ -1,9 +1,9 @@
-package com.costelmitrea.autoservice.service.map;
+package com.costelmitrea.autoservice.services.map;
 
 import com.costelmitrea.autoservice.model.Client;
-import com.costelmitrea.autoservice.service.CarService;
-import com.costelmitrea.autoservice.service.CarTypeService;
-import com.costelmitrea.autoservice.service.ClientService;
+import com.costelmitrea.autoservice.services.CarService;
+import com.costelmitrea.autoservice.services.CarTypeService;
+import com.costelmitrea.autoservice.services.ClientService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

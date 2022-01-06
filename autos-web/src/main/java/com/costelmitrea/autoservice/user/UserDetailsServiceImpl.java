@@ -1,7 +1,7 @@
 package com.costelmitrea.autoservice.user;
 
 import com.costelmitrea.autoservice.model.User;
-import com.costelmitrea.autoservice.repository.UserRepository;
+import com.costelmitrea.autoservice.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

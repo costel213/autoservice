@@ -1,4 +1,4 @@
-package com.costelmitrea.autoservice.service;
+package com.costelmitrea.autoservice.services;
 
 import com.costelmitrea.autoservice.model.Car;
 
