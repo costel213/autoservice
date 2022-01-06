@@ -16,4 +16,5 @@ public class Visit extends BaseEntity{
     private LocalDate date;
     private String description;
     private Car car;
+    private Mechanic mechanic;
 }
