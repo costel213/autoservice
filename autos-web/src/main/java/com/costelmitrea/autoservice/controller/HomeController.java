@@ -1,10 +1,17 @@
 package com.costelmitrea.autoservice.controller;
 
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class HomeController {
+
+    private final UserDetailsService userDetailsService;
+
+    public HomeController(UserDetailsService userDetailsService) {
+        this.userDetailsService = userDetailsService;
+    }
 
     @GetMapping({"/", "/home"})
     public String home() {
@@ -23,7 +30,7 @@ public class HomeController {
 
     @GetMapping("/login")
     public String login() {
-        return "login";
+        return "loginForm";
     }
 
     @GetMapping("/index")

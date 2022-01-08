@@ -3,12 +3,14 @@ package com.costelmitrea.autoservice.services.springdatajpa;
 import com.costelmitrea.autoservice.model.Car;
 import com.costelmitrea.autoservice.repositories.CarRepository;
 import com.costelmitrea.autoservice.services.CarService;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
 import java.util.Set;
 
 @Service
+@Profile("springdatajpa")
 public class CarSDJpaService implements CarService {
 
     private final CarRepository carRepository;

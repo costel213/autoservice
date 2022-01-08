@@ -1,23 +1,42 @@
 package com.costelmitrea.autoservice.model;
 
+import com.sun.istack.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.beans.support.MutableSortDefinition;
 import org.springframework.beans.support.PropertyComparator;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.*;
 
 @Setter
 @Getter
 @NoArgsConstructor
+@Entity
+@Table(name = "cars")
 public class Car extends BaseEntity{
 
+    @Column(name = "model")
+    @NotNull
     private String model;
+
+    @Column(name = "date_of_production")
+    @NotNull
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateOfProduction;
+
+    @ManyToOne
+    @JoinColumn(name = "type_id")
     private CarType carType;
+
+    @ManyToOne
+    @JoinColumn(name = "owner_id")
     private Client owner;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "car", fetch = FetchType.EAGER)
     private Set<Visit> visits = new LinkedHashSet<>();
 
     public Set<Visit> getVisitsInternal() {
@@ -41,6 +60,11 @@ public class Car extends BaseEntity{
 
     public void addVisit(Visit visit) {
         getVisitsInternal().add(visit);
-        visit.getCar().setId(this.getId());
+        visit.setCar(this);
+    }
+
+    @Override
+    public String toString() {
+        return model;
     }
 }

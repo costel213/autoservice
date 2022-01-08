@@ -8,13 +8,20 @@ import org.springframework.beans.support.MutableSortDefinition;
 import org.springframework.beans.support.PropertyComparator;
 import org.springframework.core.style.ToStringCreator;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import java.util.*;
 
 @Setter
 @Getter
 @NoArgsConstructor
+@Entity
+@Table(name = "clients")
 public class Client extends Person{
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "owner")
     private Set<Car> cars;
 
     public Set<Car> getCarsInternal() {

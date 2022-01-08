@@ -12,12 +12,22 @@ import java.util.stream.Collectors;
 
 public class UserDetailsImpl implements UserDetails {
 
+    private String firstName;
+    private String lastName;
+    private String address;
+    private String city;
+    private String telephone;
     private String userName;
     private String password;
     private boolean active;
     private List<GrantedAuthority> grantedAuthorities;
 
     public UserDetailsImpl(User user) {
+        this.firstName = user.getFirstName();
+        this.lastName = user.getLastName();
+        this.address = user.getAddress();
+        this.city = user.getCity();
+        this.telephone = user.getTelephone();
         this.userName = user.getUserName();
         this.password = user.getPassword();
         this.active = user.isActive();

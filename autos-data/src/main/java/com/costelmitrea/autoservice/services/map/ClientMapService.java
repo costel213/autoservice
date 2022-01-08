@@ -4,13 +4,16 @@ import com.costelmitrea.autoservice.model.Client;
 import com.costelmitrea.autoservice.services.CarService;
 import com.costelmitrea.autoservice.services.CarTypeService;
 import com.costelmitrea.autoservice.services.ClientService;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
+@Profile("map")
 public class ClientMapService extends AbstractMapService<Client, Long> implements ClientService {
 
     private final CarTypeService carTypeService;
@@ -25,17 +28,23 @@ public class ClientMapService extends AbstractMapService<Client, Long> implement
     public Client findByLastName(String lastName) {
         return this.findAll()
                 .stream()
-                .filter(client -> client.getLastName().equalsIgnoreCase(lastName))
+                .filter(client -> client.getLastName().equalsIgnoreCase(lastName.trim()))
                 .findFirst()
                 .orElse(null);
     }
 
     @Override
     public List<Client> findAllByLastNameLike(String lastName) {
-        return this.findAll()
-                .stream()
-                .filter(client -> client.getLastName().equalsIgnoreCase(lastName))
-                .collect(Collectors.toList());
+        if(lastName.equalsIgnoreCase("")) {
+            List<Client> foundClients = new ArrayList<>();
+            foundClients.addAll(this.findAll());
+            return foundClients;
+        } else {
+            return this.findAll()
+                    .stream()
+                    .filter(client -> client.getLastName().equalsIgnoreCase(lastName))
+                    .collect(Collectors.toList());
+        }
     }
 
     @Override

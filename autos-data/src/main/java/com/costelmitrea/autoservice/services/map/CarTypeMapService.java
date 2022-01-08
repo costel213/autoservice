@@ -2,11 +2,13 @@ package com.costelmitrea.autoservice.services.map;
 
 import com.costelmitrea.autoservice.model.CarType;
 import com.costelmitrea.autoservice.services.CarTypeService;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
 
 @Service
+@Profile("map")
 public class CarTypeMapService extends AbstractMapService<CarType, Long> implements CarTypeService {
 
     @Override

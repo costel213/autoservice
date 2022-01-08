@@ -7,6 +7,7 @@ import lombok.Setter;
 import org.springframework.beans.support.MutableSortDefinition;
 import org.springframework.beans.support.PropertyComparator;
 
+import javax.persistence.*;
 import javax.xml.bind.annotation.XmlElement;
 import java.util.*;
 
@@ -14,10 +15,21 @@ import java.util.*;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
+@Entity
+@Table(name = "mechanics")
 public class Mechanic extends Person{
 
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "mechanic_specialties", joinColumns = @JoinColumn(name = "mechanic_id"),
+    inverseJoinColumns = @JoinColumn(name = "specialty_id"))
     private Set<Specialty> specialties;
-    private Map<String, String> experience;
+
+//    @ElementCollection
+//    @CollectionTable(name = "experience", joinColumns = {@JoinColumn(name = "mechanic_id", referencedColumnName = "id")})
+//    @MapKeyColumn(name = "experience_key")
+//    @Column(name = "experience")
+    @OneToMany(cascade = CascadeType.ALL)
+    private Set<Experience> experience;
 
     public Set<Specialty> getSpecialtiesInternal() {
         if(this.specialties == null) {
@@ -48,25 +60,25 @@ public class Mechanic extends Person{
         getSpecialtiesInternal().add(specialty);
     }
 
-    public Map<String, String> getExperienceInternal() {
+    public Set<Experience> getExperienceInternal() {
         if(this.experience == null) {
-            this.experience = new HashMap<>();
+            this.experience = new HashSet<>();
         }
 
         return this.experience;
     }
 
-    public void setExperienceInternal(Map<String, String> experience) {
+    public void setExperienceInternal(Set<Experience> experience) {
         this.experience = experience;
     }
 
     @XmlElement
-    public NavigableMap<String, String> getExperience() {
-        TreeMap<String, String> chronologicalExperience = new TreeMap<>(getExperienceInternal());
-        return chronologicalExperience.descendingMap();
+    public TreeSet<Experience> getExperience() {
+        TreeSet<Experience> chronologicalExperience = new TreeSet<>(getExperienceInternal());
+        return chronologicalExperience;
     }
 
-    public void addExperience(String period, String description) {
-        getExperienceInternal().put(period, description);
+    public void addExperience(Experience experience) {
+        getExperienceInternal().add(experience);
     }
 }

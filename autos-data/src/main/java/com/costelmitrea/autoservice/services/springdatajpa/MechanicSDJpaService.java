@@ -3,12 +3,14 @@ package com.costelmitrea.autoservice.services.springdatajpa;
 import com.costelmitrea.autoservice.model.Mechanic;
 import com.costelmitrea.autoservice.repositories.MechanicRepository;
 import com.costelmitrea.autoservice.services.MechanicService;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
 import java.util.Set;
 
 @Service
+@Profile("springdatajpa")
 public class MechanicSDJpaService implements MechanicService {
 
     private final MechanicRepository mechanicRepository;
