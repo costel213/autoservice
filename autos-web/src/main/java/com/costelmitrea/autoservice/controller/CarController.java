@@ -1,12 +1,12 @@
 package com.costelmitrea.autoservice.controller;
 
-import com.costelmitrea.autoservice.carvalidator.CarValidator;
 import com.costelmitrea.autoservice.model.Car;
 import com.costelmitrea.autoservice.model.CarType;
 import com.costelmitrea.autoservice.model.Client;
 import com.costelmitrea.autoservice.services.CarService;
 import com.costelmitrea.autoservice.services.CarTypeService;
 import com.costelmitrea.autoservice.services.ClientService;
+import com.costelmitrea.autoservice.validator.CarValidator;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.StringUtils;
@@ -61,7 +61,8 @@ public class CarController {
     }
 
     @PostMapping("/cars/new")
-    public String processCreationForm(Client client, @Validated Car car, BindingResult bindingResult, ModelMap model) {
+    public String processCreationForm(Client client, @Validated Car car, BindingResult bindingResult,
+                                      ModelMap model) {
         if(StringUtils.hasLength(car.getModel()) && car.isNew() && client.getCar(car.getModel(), true) != null) {
             bindingResult.rejectValue("model", "duplicate", "already exists");
         }

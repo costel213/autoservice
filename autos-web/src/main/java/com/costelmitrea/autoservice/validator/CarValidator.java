@@ -1,4 +1,4 @@
-package com.costelmitrea.autoservice.carvalidator;
+package com.costelmitrea.autoservice.validator;
 
 import com.costelmitrea.autoservice.model.Car;
 import org.springframework.util.StringUtils;

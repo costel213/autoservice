@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+
+<html xmlns:th="https://www.thymeleaf.org"
+      th:replace="~{fragments/layout :: layout (~{::body},'mechanics')}">
+
+<body>
+
+
+<h2>Mechanic Information</h2>
+
+
+<table class="table table-striped" th:object="${mechanic}">
+    <tr>
+        <th>Name</th>
+        <td><b th:text="*{firstName + ' ' + lastName}"></b></td>
+    </tr>
+    <tr>
+        <th>Address</th>
+        <td th:text="*{address}"></td>
+    </tr>
+    <tr>
+        <th>City</th>
+        <td th:text="*{city}"></td>
+    </tr>
+    <tr>
+        <th>Telephone</th>
+        <td th:text="*{telephone}"></td>
+    </tr>
+</table>
+
+<a th:href="@{{id}/edit(id=${mechanic.id})}" class="btn btn-default">Edit
+    Mechanic</a>
+<a th:href="@{{id}/experience/new(id=${mechanic.id})}" class="btn btn-default">Add
+    New Experience</a>
+
+<br />
+<br />
+<br />
+<h2>Experience</h2>
+
+<table class="table table-striped">
+
+    <tr th:each="exper : ${mechanic.experience}">
+        <td valign="top">
+            <dl class="dl-horizontal">
+                <dt>Interval</dt>
+                <dd th:text="${exper.timeInterval}"></dd>
+                <dt>Position</dt>
+                <dd th:text="${exper.position}"></dd>
+            </dl>
+        </td>
+        <td valign="top">
+            <table class="table-condensed">
+                <tr>
+                    <td><a
+                            th:href="@{{mechanicId}/experience/{experienceId}/edit(mechanicId=${mechanic.id},experienceId=${exper.id})}">Edit
+                        Experience</a></td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+
+</table>
+
+</body>
+
+</html>

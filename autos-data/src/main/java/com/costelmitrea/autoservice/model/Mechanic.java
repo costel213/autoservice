@@ -24,11 +24,7 @@ public class Mechanic extends Person{
     inverseJoinColumns = @JoinColumn(name = "specialty_id"))
     private Set<Specialty> specialties;
 
-//    @ElementCollection
-//    @CollectionTable(name = "experience", joinColumns = {@JoinColumn(name = "mechanic_id", referencedColumnName = "id")})
-//    @MapKeyColumn(name = "experience_key")
-//    @Column(name = "experience")
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "mechanic")
     private Set<Experience> experience;
 
     public Set<Specialty> getSpecialtiesInternal() {
@@ -68,17 +64,38 @@ public class Mechanic extends Person{
         return this.experience;
     }
 
+    public Experience getExperience(String timeInterval) {
+        return getExperience(timeInterval, false);
+    }
+
+    public Experience getExperience(String timeInterval, boolean ignoreNew) {
+        for(Experience experience : getExperienceInternal()) {
+            if(!ignoreNew || !experience.isNew()) {
+                String compTimeInterval = experience.getTimeInterval();
+                if(compTimeInterval.equals(timeInterval)) {
+                    return experience;
+                }
+            }
+        }
+
+        return null;
+    }
+
     public void setExperienceInternal(Set<Experience> experience) {
         this.experience = experience;
     }
 
-    @XmlElement
-    public TreeSet<Experience> getExperience() {
-        TreeSet<Experience> chronologicalExperience = new TreeSet<>(getExperienceInternal());
-        return chronologicalExperience;
-    }
+//    @XmlElement
+//    public TreeSet<Experience> getExperience() {
+//        TreeSet<Experience> chronologicalExperience = new TreeSet<>(getExperienceInternal());
+//        return chronologicalExperience;
+//    }
 
     public void addExperience(Experience experience) {
-        getExperienceInternal().add(experience);
+        if(experience.isNew()) {
+            getExperienceInternal().add(experience);
+        }
+
+        experience.setMechanic(this);
     }
 }

@@ -6,22 +6,18 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.Set;
 
 @Setter
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "user")
-public class User extends Person {
+@Table(name = "users")
+public class User extends BaseEntity {
 
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.AUTO)
-//    private Long id;
-    @Column(name = "user_name")
+    @Column(name = "user_name", unique = true)
     @NotNull
     private String userName;
 
@@ -29,21 +25,17 @@ public class User extends Person {
     @NotNull
     private String password;
 
-    @Column(name = "active")
+    @Column(name = "first_name")
     @NotNull
-    private boolean active;
+    private String firstName;
 
-    @Column(name = "roles")
+    @Column(name = "last_name")
     @NotNull
-    private String roles;
+    private String lastName;
 
-    public User(String firstName, String lastName, String address,
-                String city, String telephone, String userName, String password,
-                boolean active, String roles) {
-        super(firstName, lastName, address, city, telephone);
-        this.userName = userName;
-        this.password = password;
-        this.active = active;
-        this.roles = roles;
-    }
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<SimpleGrantedAuthority> roles;
+
 }

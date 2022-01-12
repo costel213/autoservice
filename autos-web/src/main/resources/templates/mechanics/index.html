@@ -16,8 +16,10 @@
     </thead>
     <tbody>
     <tr th:each="mechanic : ${mechanics}">
-        <td th:text="${mechanic.firstName + ' ' + mechanic.lastName}"></td>
-        <td><span th:each="specialty : ${mechanic.specialties}"
+        <td>
+            <a th:href="@{/mechanics/__${mechanic.id}__}" th:text="${mechanic.firstName + ' ' + mechanic.lastName}"></td>
+        <td>
+            <span th:each="specialty : ${mechanic.specialties}"
                   th:text="${specialty.Name + ' '}"/> <span
                 th:if="${mechanic.specialties.size() == 0}">none</span></td>
     </tr>

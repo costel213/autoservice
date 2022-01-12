@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragments/layoutBeforeLogin :: layoutBeforeLogin (~{::body}, '')}">
+<head>
+    <meta charset="UTF-8">
+    <title>Auto Service Index</title>
+</head>
+<body>
+<form class="form-horizontal" method="post">
+    <h2 th:text="#{welcome}">Welcome</h2>
+    <h3 th:text="#{messageAfterRegistration}">You have been successfully registered. Please log in if you want to use this application.</h3>
+</form>
+
+<div class="row">
+    <div class="col-md-12">
+        <img class="img-responsive" src="../static/resources/images/auto-service.png"
+             th:src="@{/resources/images/auto-service.png}" height="300px" width="300px"/>
+
+    </div>
+</div>
+</body>
+</html>
