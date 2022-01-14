@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body}, 'mechanics')}">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml"
+      th:replace="~{fragments/layout :: layout (~{::body}, 'mechanics')}">
 <head>
     <meta charset="UTF-8">
     <title>List of Mechanics</title>
@@ -12,7 +13,9 @@
     <tr>
         <th>Name</th>
         <th>Specialties</th>
-        <th>Delete Mechanic</th>
+        <div sec:authorize="hasRole('ADMIN')">
+            <th>Delete Mechanic</th>
+        </div>
     </tr>
     </thead>
     <tbody>
@@ -23,9 +26,11 @@
             <span th:each="specialty : ${mechanic.specialties}"
                   th:text="${specialty.Name + ' '}"/> <span
                 th:if="${mechanic.specialties.size() == 0}">none</span></td>
-        <td>
-            <a th:href="@{/mechanics/{mechanicId}/deleted(mechanicId=${mechanic.id})}"/>Delete</a>
-        </td>
+        <div sec:authorize="hasRole('ADMIN')">
+            <td>
+                <a th:href="@{/mechanics/{mechanicId}/deleted(mechanicId=${mechanic.id})}"/>Delete</a>
+            </td>
+        </div>
     </tr>
     </tbody>
 </table>

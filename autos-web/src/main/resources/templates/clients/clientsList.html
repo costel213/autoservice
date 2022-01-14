@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 
-<html xmlns:th="https://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'clients')}">
+<html xmlns:th="https://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml"
+      th:replace="~{fragments/layout :: layout (~{::body},'clients')}">
 
 <body>
 
@@ -14,7 +15,9 @@
         <th>City</th>
         <th style="width: 120px">Telephone</th>
         <th>Cars</th>
-        <th>Delete Client</th>
+        <div sec:authorize="hasRole('ADMIN')">
+            <th>Delete Client</th>
+        </div>
     </tr>
     </thead>
     <tbody>
@@ -26,9 +29,11 @@
         <td th:text="${client.city}"/>
         <td th:text="${client.telephone}"/>
         <td><span th:text="${#strings.listJoin(client.cars, ', ')}"/></td>
-        <td>
-            <a th:href="@{/clients/{clientId}/deleted(clientId=${client.id})}"/>Delete</a>
-        </td>
+        <div sec:authorize="hasRole('ADMIN')">
+            <td>
+                <a th:href="@{/clients/{clientId}/deleted(clientId=${client.id})}"/>Delete</a>
+            </td>
+        </div>
     </tr>
     </tbody>
 </table>

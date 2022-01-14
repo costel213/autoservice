@@ -130,6 +130,4 @@ public class Mechanic extends Person{
 
         visit.setMechanic(this);
     }
-
-
 }

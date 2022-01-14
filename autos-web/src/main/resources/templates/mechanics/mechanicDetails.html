@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html xmlns:th="https://www.thymeleaf.org"
+<html xmlns:th="https://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml"
       th:replace="~{fragments/layout :: layout (~{::body},'mechanics')}">
 
 <body>
@@ -30,10 +30,10 @@
 
 <a th:href="@{{id}/edit(id=${mechanic.id})}" class="btn btn-default">Edit
     Mechanic</a>
-<a th:href="@{{id}/deletedSuccessfully(id=${mechanic.id})}" class="btn btn-default">Delete
-    Mechanic</a>
 <a th:href="@{{id}/experience/new(id=${mechanic.id})}" class="btn btn-default">Add
     New Experience</a>
+<a sec:authorize="hasRole('ADMIN')" th:href="@{{id}/deletedSuccessfully(id=${mechanic.id})}" class="btn btn-default">Delete
+    Mechanic</a>
 
 <br />
 <br />
@@ -57,9 +57,11 @@
                     <td><a
                             th:href="@{{mechanicId}/experience/{experienceId}/edit(mechanicId=${mechanic.id},experienceId=${exper.id})}">Edit
                         Experience</a></td>
-                    <td><a
-                            th:href="@{{mechanicId}/experience/{experienceId}/successfullyDeleted(mechanicId=${mechanic.id},experienceId=${exper.id})}">Delete
-                        Experience</a></td>
+                    <div sec:authorize="hasRole('ADMIN')">
+                        <td><a
+                                th:href="@{{mechanicId}/experience/{experienceId}/successfullyDeleted(mechanicId=${mechanic.id},experienceId=${exper.id})}">Delete
+                            Experience</a></td>
+                    </div>
                 </tr>
             </table>
         </td>

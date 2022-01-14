@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html xmlns:th="https://www.thymeleaf.org"
+<html xmlns:th="https://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml"
       th:replace="~{fragments/layout :: layout (~{::body},'clients')}">
 
 <body>
@@ -30,10 +30,10 @@
 
 <a th:href="@{{id}/edit(id=${client.id})}" class="btn btn-default">Edit
   Client</a>
-<a th:href="@{{id}/deletedSuccessfully(id=${client.id})}" class="btn btn-default">Delete
-  Client</a>
 <a th:href="@{{id}/cars/new(id=${client.id})}" class="btn btn-default">Add
   New Car</a>
+<a sec:authorize="hasRole('ADMIN')" th:href="@{{id}/deletedSuccessfully(id=${client.id})}" class="btn btn-default">Delete
+  Client</a>
 
 <br />
 <br />
@@ -61,27 +61,33 @@
           <th>Visit Date</th>
           <th>Description</th>
           <th>Mechanic</th>
-          <th>Delete Visit</th>
+          <div sec:authorize="hasRole('ADMIN')">
+            <th>Delete Visit</th>
+          </div>
         </tr>
         </thead>
         <tr th:each="visit : ${car.visits}">
           <td th:text="${#temporals.format(visit.date, 'yyyy-MM-dd')}"></td>
           <td th:text="${visit?.description}"></td>
           <td th:text="${visit?.mechanic}"></td>
-          <td><a
-                  th:href="@{{clientId}/cars/{carId}/visits/{visitId}/deleted(clientId=${client.id},carId=${car.id}, visitId=${visit.id})}">Delete
-            Visit</a></td>
+          <div sec:authorize="hasRole('ADMIN')">
+            <td><a
+                    th:href="@{{clientId}/cars/{carId}/visits/{visitId}/deleted(clientId=${client.id},carId=${car.id}, visitId=${visit.id})}">Delete
+              Visit</a></td>
+          </div>
         </tr>
         <tr>
           <td><a
                   th:href="@{{clientId}/cars/{carId}/edit(clientId=${client.id},carId=${car.id})}">Edit
             Car</a></td>
           <td><a
-                  th:href="@{{clientId}/cars/{carId}/deleted(clientId=${client.id},carId=${car.id})}">Delete
-            Car</a></td>
-          <td><a
                   th:href="@{{clientId}/cars/{carId}/visits/new(clientId=${client.id},carId=${car.id})}">Add
             Visit</a></td>
+          <div sec:authorize="hasRole('ADMIN')">
+            <td><a
+                    th:href="@{{clientId}/cars/{carId}/deleted(clientId=${client.id},carId=${car.id})}">Delete
+              Car</a></td>
+          </div>
         </tr>
       </table>
     </td>
