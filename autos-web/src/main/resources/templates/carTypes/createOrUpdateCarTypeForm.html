@@ -1,0 +1,22 @@
+<html xmlns:th="https://www.thymeleaf.org"
+      th:replace="~{fragments/layout :: layout (~{::body},'carTypesList')}">
+
+<body>
+
+<h2>CarType</h2>
+<form th:object="${carType}" class="form-horizontal" id="add-carType-form" method="post">
+    <div class="form-group has-feedback">
+        <input
+                th:replace="~{fragments/inputField :: input ('Name', 'name', 'text')}" />
+    </div>
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button
+                    th:with="text=${carType['new']} ? 'Add Car Type' : 'Update Car Type'"
+                    class="btn btn-default" type="submit" th:text="${text}">Add
+                Car Type</button>
+        </div>
+    </div>
+</form>
+</body>
+</html>

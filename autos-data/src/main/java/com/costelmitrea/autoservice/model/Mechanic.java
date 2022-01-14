@@ -8,7 +8,6 @@ import org.springframework.beans.support.MutableSortDefinition;
 import org.springframework.beans.support.PropertyComparator;
 
 import javax.persistence.*;
-import javax.xml.bind.annotation.XmlElement;
 import java.util.*;
 
 @Setter
@@ -42,14 +41,13 @@ public class Mechanic extends Person{
         this.specialties = specialties;
     }
 
-    @XmlElement
-    public List<Specialty> getSpecialties() {
-        List<Specialty> sortedSpecialties = new ArrayList<>(getSpecialtiesInternal());
-        PropertyComparator.sort(sortedSpecialties,
-                new MutableSortDefinition("name", true, true));
-
-        return Collections.unmodifiableList(sortedSpecialties);
-    }
+//    public List<Specialty> getSpecialties() {
+//        List<Specialty> sortedSpecialties = new ArrayList<>(getSpecialtiesInternal());
+//        PropertyComparator.sort(sortedSpecialties,
+//                new MutableSortDefinition("name", true, true));
+//
+//        return Collections.unmodifiableList(sortedSpecialties);
+//    }
 
     public int getNrOfSpecialties() {
         return getSpecialtiesInternal().size();
@@ -114,7 +112,6 @@ public class Mechanic extends Person{
         this.visits = visits;
     }
 
-    @XmlElement
     public List<Visit> getVisits() {
         List<Visit> sortedVisits = new ArrayList<>(getVisitsInternal());
         PropertyComparator.sort(sortedVisits,

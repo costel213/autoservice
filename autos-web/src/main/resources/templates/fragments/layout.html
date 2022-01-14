@@ -1,5 +1,6 @@
 <!doctype html>
-<html th:fragment="layout (template, menu)">
+<html xmlns:sec="http://www.w3.org/1999/xhtml"
+      th:fragment="layout (template, menu)">
 
 <head>
 
@@ -64,6 +65,21 @@
           </li>
 
           <li th:replace="::menuItem ('/mechanics','mechanics','mechanics','th-list','Mechanics')">
+            <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+            <span>Mechanics</span>
+          </li>
+
+          <li sec:authorize="hasRole('ADMIN')" th:replace="::menuItem ('/carTypesList','carTypesList','carTypes','th-list','Car Types')">
+            <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+            <span>Mechanics</span>
+          </li>
+
+          <li sec:authorize="hasRole('ADMIN')" th:replace="::menuItem ('/specialtiesList','specialtiesList','specialties','th-list','Specialties')">
+            <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+            <span>Mechanics</span>
+          </li>
+
+          <li sec:authorize="hasRole('ADMIN')" th:replace="::menuItem ('/usersList','usersList','users','th-list','Users')">
             <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
             <span>Mechanics</span>
           </li>

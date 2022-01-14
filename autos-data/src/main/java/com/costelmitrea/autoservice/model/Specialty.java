@@ -22,4 +22,9 @@ public class Specialty extends BaseEntity implements Serializable {
     @Column(name = "name")
     @NotNull
     private String name;
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }

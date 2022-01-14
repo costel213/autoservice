@@ -1,8 +1,10 @@
 package com.costelmitrea.autoservice.controller;
 
 import com.costelmitrea.autoservice.model.Mechanic;
+import com.costelmitrea.autoservice.model.Specialty;
 import com.costelmitrea.autoservice.services.ExperienceService;
 import com.costelmitrea.autoservice.services.MechanicService;
+import com.costelmitrea.autoservice.services.SpecialtyService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -11,6 +13,8 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.Collection;
+import java.util.Map;
 import java.util.Set;
 
 @Controller
@@ -18,15 +22,39 @@ public class MechanicController {
 
     private final MechanicService mechanicService;
     private final ExperienceService experienceService;
+    private final SpecialtyService specialtyService;
 
-    public MechanicController(MechanicService mechanicService, ExperienceService experienceService) {
+    public MechanicController(MechanicService mechanicService, ExperienceService experienceService, SpecialtyService specialtyService) {
         this.mechanicService = mechanicService;
         this.experienceService = experienceService;
+        this.specialtyService = specialtyService;
     }
 
     @InitBinder
     public void setAllowedFields(WebDataBinder dataBinder) {
         dataBinder.setDisallowedFields("id");
+    }
+
+    @ModelAttribute("specialties")
+    public Collection<Specialty> populateSpecialties() {
+        return this.specialtyService.findAll();
+    }
+
+    @GetMapping("/mechanics/new")
+    public String initCreationForm(Map<String, Object> model) {
+        Mechanic mechanic = new Mechanic();
+        model.put("mechanic", mechanic);
+        return "mechanics/createOrUpdateMechanicForm";
+    }
+
+    @PostMapping("/mechanics/new")
+    public String processCreationForm(@Validated Mechanic mechanic, BindingResult bindingResult) {
+        if(bindingResult.hasErrors()) {
+            return "mechanics/createOrUpdateMechanicForm";
+        } else {
+            this.mechanicService.save(mechanic);
+            return "redirect:/mechanics/" + mechanic.getId();
+        }
     }
 
     @GetMapping("/mechanics/{mechanicId}/edit")
