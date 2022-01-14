@@ -27,6 +27,9 @@ public class Mechanic extends Person{
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "mechanic")
     private Set<Experience> experience;
 
+    @OneToMany(mappedBy = "mechanic")
+    Set<Visit> visits;
+
     public Set<Specialty> getSpecialtiesInternal() {
         if(this.specialties == null) {
             this.specialties = new HashSet<>();
@@ -98,4 +101,35 @@ public class Mechanic extends Person{
 
         experience.setMechanic(this);
     }
+
+    public Set<Visit> getVisitsInternal() {
+        if(this.visits == null) {
+            this.visits = new HashSet<>();
+        }
+
+        return this.visits;
+    }
+
+    public void setVisitsInternal(Set<Visit> visits) {
+        this.visits = visits;
+    }
+
+    @XmlElement
+    public List<Visit> getVisits() {
+        List<Visit> sortedVisits = new ArrayList<>(getVisitsInternal());
+        PropertyComparator.sort(sortedVisits,
+                new MutableSortDefinition("date", true, true));
+
+        return Collections.unmodifiableList(sortedVisits);
+    }
+
+    public void addVisit(Visit visit) {
+        if(visit.isNew()) {
+            getVisitsInternal().add(visit);
+        }
+
+        visit.setMechanic(this);
+    }
+
+
 }

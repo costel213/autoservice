@@ -30,6 +30,8 @@
 
 <a th:href="@{{id}/edit(id=${client.id})}" class="btn btn-default">Edit
   Client</a>
+<a th:href="@{{id}/deletedSuccessfully(id=${client.id})}" class="btn btn-default">Delete
+  Client</a>
 <a th:href="@{{id}/cars/new(id=${client.id})}" class="btn btn-default">Add
   New Car</a>
 
@@ -58,15 +60,24 @@
         <tr>
           <th>Visit Date</th>
           <th>Description</th>
+          <th>Mechanic</th>
+          <th>Delete Visit</th>
         </tr>
         </thead>
         <tr th:each="visit : ${car.visits}">
           <td th:text="${#temporals.format(visit.date, 'yyyy-MM-dd')}"></td>
           <td th:text="${visit?.description}"></td>
+          <td th:text="${visit?.mechanic}"></td>
+          <td><a
+                  th:href="@{{clientId}/cars/{carId}/visits/{visitId}/deleted(clientId=${client.id},carId=${car.id}, visitId=${visit.id})}">Delete
+            Visit</a></td>
         </tr>
         <tr>
           <td><a
                   th:href="@{{clientId}/cars/{carId}/edit(clientId=${client.id},carId=${car.id})}">Edit
+            Car</a></td>
+          <td><a
+                  th:href="@{{clientId}/cars/{carId}/deleted(clientId=${client.id},carId=${car.id})}">Delete
             Car</a></td>
           <td><a
                   th:href="@{{clientId}/cars/{carId}/visits/new(clientId=${client.id},carId=${car.id})}">Add

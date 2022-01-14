@@ -91,6 +91,24 @@ public class ClientController {
         }
     }
 
+    @GetMapping("/clients/{clientId}/deletedSuccessfully")
+    public String initDeleteForm(@PathVariable("clientId") Long clientId, Model model) {
+        Client client = this.clientService.findById(clientId);
+        model.addAttribute(client);
+        this.clientService.delete(client);
+        return "clients/successDeleteClient";
+    }
+
+    @GetMapping("/clients/{clientId}/deleted")
+    public String deleteClient(@PathVariable("clientId") Long clientId) {
+        this.clientService.deleteById(clientId);
+        if(this.clientService.findAll().size() == 1) {
+            Client client = this.clientService.findAll().iterator().next();
+            return "redirect:/clients/" + client.getId();
+        }
+        return "clients/clientsList";
+    }
+
     @GetMapping("/clients/{clientId}")
     public ModelAndView showClient(@PathVariable("clientId") Long clientId) {
         ModelAndView modelAndView = new ModelAndView("clients/clientDetails");

@@ -30,6 +30,8 @@
 
 <a th:href="@{{id}/edit(id=${mechanic.id})}" class="btn btn-default">Edit
     Mechanic</a>
+<a th:href="@{{id}/deletedSuccessfully(id=${mechanic.id})}" class="btn btn-default">Delete
+    Mechanic</a>
 <a th:href="@{{id}/experience/new(id=${mechanic.id})}" class="btn btn-default">Add
     New Experience</a>
 
@@ -54,6 +56,9 @@
                 <tr>
                     <td><a
                             th:href="@{{mechanicId}/experience/{experienceId}/edit(mechanicId=${mechanic.id},experienceId=${exper.id})}">Edit
+                        Experience</a></td>
+                    <td><a
+                            th:href="@{{mechanicId}/experience/{experienceId}/successfullyDeleted(mechanicId=${mechanic.id},experienceId=${exper.id})}">Delete
                         Experience</a></td>
                 </tr>
             </table>

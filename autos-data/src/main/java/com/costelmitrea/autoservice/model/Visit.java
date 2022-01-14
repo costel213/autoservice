@@ -29,7 +29,7 @@ public class Visit extends BaseEntity{
     @JoinColumn(name = "car_id")
     private Car car;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "mechanic_id")
     private Mechanic mechanic;
 }

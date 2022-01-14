@@ -95,4 +95,10 @@ public class CarController {
             return "redirect:/clients/{clientId}";
         }
     }
+
+    @GetMapping("/cars/{carId}/deleted")
+    public String deleteCar(@PathVariable("carId") Long carId) {
+        this.carService.deleteById(carId);
+        return "redirect:/clients/{clientId}";
+    }
 }

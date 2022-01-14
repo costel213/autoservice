@@ -7,11 +7,12 @@
 <body>
 <h2>Mechanics</h2>
 
-<table id="vets" class="table table-striped">
+<table id="mechanics" class="table table-striped">
     <thead>
     <tr>
         <th>Name</th>
         <th>Specialties</th>
+        <th>Delete Mechanic</th>
     </tr>
     </thead>
     <tbody>
@@ -22,6 +23,9 @@
             <span th:each="specialty : ${mechanic.specialties}"
                   th:text="${specialty.Name + ' '}"/> <span
                 th:if="${mechanic.specialties.size() == 0}">none</span></td>
+        <td>
+            <a th:href="@{/mechanics/{mechanicId}/deleted(mechanicId=${mechanic.id})}"/>Delete</a>
+        </td>
     </tr>
     </tbody>
 </table>

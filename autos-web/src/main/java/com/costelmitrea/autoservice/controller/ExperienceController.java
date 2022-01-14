@@ -36,7 +36,7 @@ public class ExperienceController {
     }
 
     @InitBinder("experience")
-    public void initCarBinder(WebDataBinder dataBinder) {
+    public void initExperienceBinder(WebDataBinder dataBinder) {
         dataBinder.setValidator(new ExperienceValidator());
     }
 
@@ -82,5 +82,12 @@ public class ExperienceController {
             this.experienceService.save(experience);
             return "redirect:/mechanics/{mechanicId}";
         }
+    }
+
+    @GetMapping("/experience/{experienceId}/successfullyDeleted")
+    public String deleteExperience(@PathVariable("experienceId") Long experienceId) {
+        Experience experience = this.experienceService.findById(experienceId);
+        experienceService.delete(experience);
+        return "redirect:/mechanics/{mechanicId}";
     }
 }

@@ -35,4 +35,9 @@ public class Person extends BaseEntity{
     @Column(name = "telephone")
     @NotNull
     private String telephone;
+
+    @Override
+    public String toString() {
+        return firstName + " " + lastName;
+    }
 }
