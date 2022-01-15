@@ -22,6 +22,10 @@ public class UserDetails implements Serializable, org.springframework.security.c
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
+        if(user.getRoles().size() == 0) {
+            user.getRoles().add(new SimpleGrantedAuthority("USER"));
+        }
+
         return user.getRoles();
     }
 
