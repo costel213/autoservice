@@ -45,4 +45,9 @@ public class UserSDJpaService implements UserService {
     public void deleteById(Long aLong) {
         userRepository.deleteById(aLong);
     }
+
+    @Override
+    public User findByUserName(String userName) {
+        return userRepository.findByUserName(userName);
+    }
 }

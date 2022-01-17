@@ -69,6 +69,11 @@
 
 </table>
 
+<div th:object="${mechanic}">
+    <a sec:authorize="hasRole('ADMIN')" th:href="@{{id}/visits(id=${mechanic.id})}" class="btn btn-default" th:text="*{'See visits for ' + firstName + ' ' + lastName}">See visits for
+        mechanic</a>
+</div>
+
 </body>
 
 </html>

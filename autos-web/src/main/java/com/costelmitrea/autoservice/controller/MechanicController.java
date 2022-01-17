@@ -89,7 +89,7 @@ public class MechanicController {
         this.mechanicService.deleteById(mechanicId);
         if(this.mechanicService.findAll().size() == 1) {
             Mechanic mechanic = this.mechanicService.findAll().iterator().next();
-            return "redirect:/mechanics/" + mechanic.getId();
+            return "redirect:/mechanics/index";
         }
 
         return "mechanics/index";
@@ -106,6 +106,13 @@ public class MechanicController {
         ModelAndView modelAndView = new ModelAndView("mechanics/mechanicDetails");
         modelAndView.addObject(this.mechanicService.findById(mechanicId));
         return modelAndView;
+    }
+
+    @GetMapping("/mechanics/{mechanicId}/visits")
+    public String mechanicVisits(@PathVariable("mechanicId") Long mechanicId, Model model) {
+        Mechanic mechanic = this.mechanicService.findById(mechanicId);
+        model.addAttribute("visits", mechanic.getVisits());
+        return "mechanics/mechanicVisits";
     }
 
     @GetMapping("/api/mechanics")

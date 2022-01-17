@@ -17,22 +17,13 @@ public final class SimpleGrantedAuthority extends BaseEntity implements GrantedA
 
     private String role;
 
-    public SimpleGrantedAuthority(Long id, String role) {
-        super(id);
-        this.role = role;
-    }
-
-    public SimpleGrantedAuthority(String role) {
-        this.role = role;
+    @Override
+    public String toString() {
+        return role;
     }
 
     @Override
     public String getAuthority() {
-        return role;
-    }
-
-    @Override
-    public String toString() {
-        return role;
+        return this.role;
     }
 }

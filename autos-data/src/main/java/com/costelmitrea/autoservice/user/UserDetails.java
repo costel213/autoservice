@@ -1,18 +1,14 @@
 package com.costelmitrea.autoservice.user;
 
-import com.costelmitrea.autoservice.model.SimpleGrantedAuthority;
 import com.costelmitrea.autoservice.model.User;
 import org.springframework.security.core.GrantedAuthority;
 
 import java.io.Serializable;
 import java.util.Collection;
-import java.util.List;
 
 public class UserDetails implements Serializable, org.springframework.security.core.userdetails.UserDetails {
 
     private User user;
-
-    private List<SimpleGrantedAuthority> grantedAuthorities;
 
     public UserDetails(User user) {
         this.user = user;
@@ -22,10 +18,6 @@ public class UserDetails implements Serializable, org.springframework.security.c
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        if(user.getRoles().size() == 0) {
-            user.getRoles().add(new SimpleGrantedAuthority("USER"));
-        }
-
         return user.getRoles();
     }
 

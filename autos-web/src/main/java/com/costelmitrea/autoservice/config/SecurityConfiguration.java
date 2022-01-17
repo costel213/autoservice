@@ -39,8 +39,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .logoutSuccessUrl("/login")
                 .and()
                 .authorizeRequests()
-                .antMatchers("/home", "/cars/**", "/clients/**", "/mechanics/**", "/carTypesList/**",
-                        "/specialtiesList/**", "/usersList/**").hasAnyRole("USER", "ADMIN")
+                .antMatchers("/home", "/cars/**", "/clients/**", "/mechanics/**").hasAnyRole("USER", "ADMIN")
+                .antMatchers("/carTypesList/**", "/specialtiesList/**", "/usersList/**").hasRole("ADMIN")
                 .antMatchers("/", "/images/**", "/css/**").permitAll()
                 .and().exceptionHandling().accessDeniedHandler(accessDeniedHandler);
     }

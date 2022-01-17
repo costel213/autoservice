@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.beans.support.MutableSortDefinition;
 import org.springframework.beans.support.PropertyComparator;
-import org.springframework.core.style.ToStringCreator;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -72,10 +71,6 @@ public class Client extends Person{
 
     @Override
     public String toString() {
-        return new ToStringCreator(this)
-                .append("id", this.getId()).append("new", this.isNew())
-                .append("firstName", this.getFirstName()).append("lastName", this.getLastName())
-                .append("address", this.getAddress()).append("city", this.getCity())
-                .append("telephone", this.getTelephone()).toString();
+        return this.getFirstName() + " " + this.getLastName();
     }
 }

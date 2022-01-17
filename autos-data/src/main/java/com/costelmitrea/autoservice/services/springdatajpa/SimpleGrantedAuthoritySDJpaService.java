@@ -45,9 +45,4 @@ public class SimpleGrantedAuthoritySDJpaService implements SimpleGrantedAuthorit
     public void deleteById(Long aLong) {
         simpleGrantedAuthorityRepository.deleteById(aLong);
     }
-
-    @Override
-    public SimpleGrantedAuthority findByRole(String role) {
-        return simpleGrantedAuthorityRepository.findByRole(role);
-    }
 }

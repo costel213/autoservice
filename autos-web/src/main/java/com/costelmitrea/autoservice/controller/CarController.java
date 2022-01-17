@@ -25,7 +25,6 @@ public class CarController {
     private final ClientService clientService;
     private final CarTypeService carTypeService;
 
-
     public CarController(CarService carService, ClientService clientService, CarTypeService carTypeService) {
         this.carService = carService;
         this.clientService = clientService;

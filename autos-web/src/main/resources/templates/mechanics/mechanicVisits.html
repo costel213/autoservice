@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+
+<html xmlns:th="https://www.thymeleaf.org"
+      th:replace="~{fragments/layout :: layout (~{::body},'mechanics')}">
+
+<body>
+
+<h2>Mechanic Visits</h2>
+
+<table id="visits" class="table table-striped">
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>Visit Date</th>
+    <th>Visit Description</th>
+    <th>Car</th>
+    <th>Car's Owner</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="visit : ${visits}">
+    <td th:text="${visit.id}"/>
+    <td th:text="${visit.date}"/>
+    <td th:text="${visit.description}"/>
+    <td th:text="${visit.car}"/>
+    <td th:text="${visit.car.owner}"/>
+  </tr>
+  </tbody>
+</table>
+
+</body>
+
+</html>

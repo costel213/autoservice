@@ -26,7 +26,7 @@ public class Mechanic extends Person{
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "mechanic")
     private Set<Experience> experience;
 
-    @OneToMany(mappedBy = "mechanic")
+    @OneToMany(mappedBy = "mechanic", fetch = FetchType.EAGER)
     Set<Visit> visits;
 
     public Set<Specialty> getSpecialtiesInternal() {
@@ -127,4 +127,15 @@ public class Mechanic extends Person{
 
         visit.setMechanic(this);
     }
+
+//    @Override
+//    public String toString() {
+//        StringBuilder sb = new StringBuilder();
+//        sb.append(this.getFirstName() + " " + this.getLastName() + " ");
+//        for(Specialty specialty : this.getSpecialtiesInternal()) {
+//            sb.append(specialty.getName() + "/");
+//        }
+//
+//        return sb.toString();
+//    }
 }

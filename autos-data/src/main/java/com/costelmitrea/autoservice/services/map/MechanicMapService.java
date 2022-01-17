@@ -34,16 +34,21 @@ public class MechanicMapService extends AbstractMapService<Mechanic, Long> imple
 
     @Override
     public Mechanic save(Mechanic object) {
-        if(object.getSpecialtiesInternal().size() > 0) {
-            object.getSpecialtiesInternal().forEach(specialty -> {
-                if(specialty.getId() == null) {
-                    specialty.setId(specialtyService.save(specialty).getId());
-                }
-            });
-        } else {
-            throw new RuntimeException("Specialties cannot be empty.");
-        }
-
+//        if(object != null) {
+//            if(object.getSpecialtiesInternal() != null) {
+//                object.getSpecialtiesInternal().forEach(specialty -> {
+//                    if(specialty.getId() == null) {
+//                        specialty.setId(specialtyService.save(specialty).getId());
+//                    }
+//                });
+//            } else {
+//                throw new RuntimeException("Specialties cannot be empty.");
+//            }
+//
+//            return super.save(object);
+//        } else {
+//            return null;
+//        }
         return super.save(object);
     }
 

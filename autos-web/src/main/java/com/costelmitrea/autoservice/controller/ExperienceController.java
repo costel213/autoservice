@@ -85,9 +85,9 @@ public class ExperienceController {
     }
 
     @GetMapping("/experience/{experienceId}/successfullyDeleted")
-    public String deleteExperience(@PathVariable("experienceId") Long experienceId) {
-        Experience experience = this.experienceService.findById(experienceId);
-        experienceService.delete(experience);
+    public String deleteExperience(@PathVariable("experienceId") Long experienceId, @PathVariable("mechanicId") Long mechanicId) {
+        this.experienceService.deleteById(experienceId);
+//        Mechanic mechanic = this.mechanicService
         return "redirect:/mechanics/{mechanicId}";
     }
 }
