@@ -1,9 +1,6 @@
 package com.costelmitrea.autoservice.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -24,4 +21,12 @@ public class Experience extends BaseEntity{
     @ManyToOne
     @JoinColumn(name="mechanic_id")
     private Mechanic mechanic;
+
+    @Builder
+    public Experience(Long id, String timeInterval, String position, Mechanic mechanic) {
+        super(id);
+        this.timeInterval = timeInterval;
+        this.position = position;
+        this.mechanic = mechanic;
+    }
 }

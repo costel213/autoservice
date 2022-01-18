@@ -1,9 +1,6 @@
 package com.costelmitrea.autoservice.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.beans.support.MutableSortDefinition;
 import org.springframework.beans.support.PropertyComparator;
 
@@ -28,6 +25,13 @@ public class Mechanic extends Person{
 
     @OneToMany(mappedBy = "mechanic", fetch = FetchType.EAGER)
     Set<Visit> visits;
+    @Builder
+    public Mechanic(Long id, String firstName, String lastName, String address, String city, String telephone, Set<Specialty> specialties, Set<Experience> experience, Set<Visit> visits) {
+        super(firstName, lastName, address, city, telephone);
+        this.specialties = specialties;
+        this.experience = experience;
+        this.visits = visits;
+    }
 
     public Set<Specialty> getSpecialtiesInternal() {
         if(this.specialties == null) {

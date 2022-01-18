@@ -1,6 +1,7 @@
 package com.costelmitrea.autoservice.model;
 
 import com.sun.istack.NotNull;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -37,6 +38,19 @@ public class Car extends BaseEntity{
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "car")
     private Set<Visit> visits;
+
+    @Builder
+    public Car(Long id, String model, LocalDate dateOfProduction, CarType carType, Client owner, Set<Visit> visits) {
+        super(id);
+        this.model = model;
+        this.dateOfProduction = dateOfProduction;
+        this.carType = carType;
+        this.owner = owner;
+
+        if(visits == null || visits.size() > 0) {
+            this.visits = visits;
+        }
+    }
 
     public Set<Visit> getVisitsInternal() {
         if(this.visits == null) {

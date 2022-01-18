@@ -1,6 +1,7 @@
 package com.costelmitrea.autoservice.model;
 
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -22,6 +23,14 @@ public class Client extends Person{
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "owner")
     private Set<Car> cars;
+    @Builder
+    public Client(Long id, String firstName, String lastName, String address, String city, String telephone, Set<Car> cars) {
+        super(firstName, lastName, address, city, telephone);
+
+        if(cars == null || cars.size() > 0) {
+            this.cars = cars;
+        }
+    }
 
     public Set<Car> getCarsInternal() {
         if(this.cars == null) {

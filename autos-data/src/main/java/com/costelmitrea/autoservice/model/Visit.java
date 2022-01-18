@@ -1,10 +1,7 @@
 package com.costelmitrea.autoservice.model;
 
 import com.sun.istack.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -32,4 +29,13 @@ public class Visit extends BaseEntity{
     @OneToOne
     @JoinColumn(name = "mechanic_id")
     private Mechanic mechanic;
+
+    @Builder
+    public Visit(Long id, LocalDate date, String description, Car car, Mechanic mechanic) {
+        super(id);
+        this.date = date;
+        this.description = description;
+        this.car = car;
+        this.mechanic = mechanic;
+    }
 }

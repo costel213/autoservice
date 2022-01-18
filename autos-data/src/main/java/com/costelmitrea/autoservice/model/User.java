@@ -1,10 +1,7 @@
 package com.costelmitrea.autoservice.model;
 
 import com.sun.istack.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -34,6 +31,15 @@ public class User extends BaseEntity {
     @NotNull
     private String lastName;
 
+    @Builder
+    public User(Long id, String userName, String password, String firstName, String lastName, Set<SimpleGrantedAuthority> roles) {
+        super(id);
+        this.userName = userName;
+        this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.roles = roles;
+    }
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"),

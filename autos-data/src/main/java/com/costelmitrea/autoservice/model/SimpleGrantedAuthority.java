@@ -1,5 +1,6 @@
 package com.costelmitrea.autoservice.model;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -16,6 +17,12 @@ import javax.persistence.Table;
 public final class SimpleGrantedAuthority extends BaseEntity implements GrantedAuthority {
 
     private String role;
+
+    @Builder
+    public SimpleGrantedAuthority(Long id, String role) {
+        super(id);
+        this.role = role;
+    }
 
     @Override
     public String toString() {
