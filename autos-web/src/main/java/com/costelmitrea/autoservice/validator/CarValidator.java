@@ -18,9 +18,9 @@ public class CarValidator implements Validator {
     public void validate(Object target, Errors errors) {
         Car car = (Car) target;
         String model = car.getModel();
-        // name validation
+        // model validation
         if (!StringUtils.hasLength(model)) {
-            errors.rejectValue("name", REQUIRED, REQUIRED);
+            errors.rejectValue("model", REQUIRED, REQUIRED);
         }
 
         // type validation

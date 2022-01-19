@@ -1,6 +1,6 @@
 package com.costelmitrea.autoservice.config;
 
-import com.costelmitrea.autoservice.services.UserServiceClass;
+import com.costelmitrea.autoservice.user.UserServiceClass;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

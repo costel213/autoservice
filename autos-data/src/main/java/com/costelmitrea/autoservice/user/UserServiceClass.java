@@ -1,7 +1,7 @@
-package com.costelmitrea.autoservice.services;
+package com.costelmitrea.autoservice.user;
 
 import com.costelmitrea.autoservice.model.User;
-import com.costelmitrea.autoservice.user.UserDetails;
+import com.costelmitrea.autoservice.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.security.core.userdetails.UserDetailsService;
