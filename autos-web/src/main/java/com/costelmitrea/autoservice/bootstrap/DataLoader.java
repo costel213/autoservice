@@ -65,6 +65,10 @@ public class DataLoader implements CommandLineRunner {
         carType3.setName("sport car");
         CarType savedCarType3 = carTypeService.save(carType3);
 
+        CarType carType4 = new CarType();
+        carType4.setName("luxury car");
+        CarType savedCarType4 = carTypeService.save(carType4);
+
         Specialty specialty = new Specialty();
         specialty.setName("Engine Repair");
         Specialty savedSpecialty = specialtyService.save(specialty);
@@ -118,5 +122,25 @@ public class DataLoader implements CommandLineRunner {
         mechanic2.getSpecialtiesInternal().add(savedSpecialty2);
         mechanic2.getSpecialtiesInternal().add(savedSpecialty6);
         mechanicService.save(mechanic2);
+
+        Mechanic mechanic3 = new Mechanic();
+        mechanic3.setAddress("15 Republic St.");
+        mechanic3.setCity("Falticeni");
+        mechanic3.setFirstName("Jane");
+        mechanic3.setLastName("Davies");
+        mechanic3.setTelephone("0798687583");
+        mechanic3.getSpecialtiesInternal().add(savedSpecialty5);
+        mechanic3.getSpecialtiesInternal().add(savedSpecialty7);
+        mechanicService.save(mechanic3);
+
+        Mechanic mechanic4 = new Mechanic();
+        mechanic4.setAddress("03 Bakery's St.");
+        mechanic4.setCity("Suceava");
+        mechanic4.setFirstName("Daniel");
+        mechanic4.setLastName("Marlon");
+        mechanic4.setTelephone("0709879087");
+        mechanic4.getSpecialtiesInternal().add(savedSpecialty4);
+        mechanic2.getSpecialtiesInternal().add(savedSpecialty7);
+        mechanicService.save(mechanic4);
     }
 }

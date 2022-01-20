@@ -69,7 +69,6 @@ class MechanicSDJpaServiceTest {
         Set<Mechanic> mechanics = service.findAll();
         assertNotNull(mechanics);
         assertEquals(2, mechanics.size());
-
     }
 
     @Test
@@ -89,6 +88,5 @@ class MechanicSDJpaServiceTest {
         when(mechanicRepository.findByLastName(LAST_NAME)).thenReturn(returnMechanic);
         Mechanic mechanic = service.findByLastName(LAST_NAME);
         assertNotNull(mechanic);
-
     }
 }
