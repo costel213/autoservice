@@ -1,11 +1,12 @@
 package com.costelmitrea.autoservice.model;
 
-import com.sun.istack.NotNull;
 import lombok.*;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 @Setter
 @Getter
@@ -16,7 +17,8 @@ import javax.persistence.Table;
 public class CarType extends BaseEntity{
 
     @Column(name = "name")
-    @NotNull
+    @NotEmpty
+    @Size(min = 3, max = 20)
     private String name;
 
     @Builder

@@ -1,11 +1,12 @@
 package com.costelmitrea.autoservice.model;
 
-import com.sun.istack.NotNull;
 import lombok.*;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 @Setter
@@ -17,7 +18,8 @@ import java.io.Serializable;
 public class Specialty extends BaseEntity implements Serializable {
 
     @Column(name = "name")
-    @NotNull
+    @NotEmpty
+    @Size(min = 3, max = 30)
     private String name;
 
     @Builder

@@ -1,9 +1,10 @@
 package com.costelmitrea.autoservice.model;
 
-import com.sun.istack.NotNull;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -16,19 +17,22 @@ import java.util.Set;
 public class User extends BaseEntity {
 
     @Column(name = "user_name", unique = true)
-    @NotNull
+    @NotEmpty
+    @Size(min = 6, max = 15)
     private String userName;
 
     @Column(name = "password")
-    @NotNull
+    @NotEmpty
     private String password;
 
     @Column(name = "first_name")
-    @NotNull
+    @NotEmpty
+    @Size(min = 3, max = 30)
     private String firstName;
 
     @Column(name = "last_name")
-    @NotNull
+    @NotEmpty
+    @Size(min = 3, max = 30)
     private String lastName;
 
     @Builder

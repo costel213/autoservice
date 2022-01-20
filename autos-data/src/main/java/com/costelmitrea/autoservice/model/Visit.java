@@ -1,9 +1,10 @@
 package com.costelmitrea.autoservice.model;
 
-import com.sun.istack.NotNull;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 import java.time.LocalDate;
 
 @Setter
@@ -15,11 +16,12 @@ import java.time.LocalDate;
 public class Visit extends BaseEntity{
 
     @Column(name = "visit_date")
-    @NotNull
+    @NotEmpty
     private LocalDate date;
 
     @Column(name = "description")
-    @NotNull
+    @NotEmpty
+    @Size(min = 3, max = 30)
     private String description;
 
     @ManyToOne

@@ -1,6 +1,5 @@
 package com.costelmitrea.autoservice.model;
 
-import com.sun.istack.NotNull;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -8,6 +7,8 @@ import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
@@ -20,11 +21,12 @@ import java.util.Set;
 public class Car extends BaseEntity{
 
     @Column(name = "model")
-    @NotNull
+    @NotEmpty
+    @Size(min = 3, max = 20)
     private String model;
 
     @Column(name = "date_of_production")
-    @NotNull
+    @NotEmpty
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateOfProduction;
 

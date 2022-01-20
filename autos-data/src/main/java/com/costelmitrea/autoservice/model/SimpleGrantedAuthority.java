@@ -6,8 +6,11 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 @Setter
 @Getter
@@ -16,6 +19,9 @@ import javax.persistence.Table;
 @Table(name = "roles")
 public final class SimpleGrantedAuthority extends BaseEntity implements GrantedAuthority {
 
+    @Column
+    @NotEmpty
+    @Size(min = 5, max = 15)
     private String role;
 
     @Builder
