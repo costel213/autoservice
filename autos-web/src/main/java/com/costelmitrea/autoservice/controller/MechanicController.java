@@ -15,7 +15,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Collection;
 import java.util.Map;
-import java.util.Set;
 
 @Controller
 public class MechanicController {
@@ -87,12 +86,7 @@ public class MechanicController {
     @GetMapping("/mechanics/{mechanicId}/deleted")
     public String deleteMechanic(@PathVariable("mechanicId") Long mechanicId) {
         this.mechanicService.deleteById(mechanicId);
-        if(this.mechanicService.findAll().size() == 1) {
-            Mechanic mechanic = this.mechanicService.findAll().iterator().next();
             return "redirect:/mechanics/index";
-        }
-
-        return "mechanics/index";
     }
 
     @GetMapping("mechanics")
@@ -113,10 +107,5 @@ public class MechanicController {
         Mechanic mechanic = this.mechanicService.findById(mechanicId);
         model.addAttribute("visits", mechanic.getVisits());
         return "mechanics/mechanicVisits";
-    }
-
-    @GetMapping("/api/mechanics")
-    public  @ResponseBody Set<Mechanic> getMechanicsJson() {
-        return mechanicService.findAll();
     }
 }

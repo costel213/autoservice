@@ -23,6 +23,7 @@ public class User extends BaseEntity {
 
     @Column(name = "password")
     @NotEmpty
+    @Size(min = 8)
     private String password;
 
     @Column(name = "first_name")

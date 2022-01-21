@@ -61,11 +61,6 @@ public class VisitController {
         });
     }
 
-//    @ModelAttribute("client")
-//    public Client findClient (@PathVariable("clientId") Long clientId) {
-//        return this.clientService.findById(clientId);
-//    }
-
     @ModelAttribute("car")
     public Car findCar (@PathVariable("carId") Long carId) {
         return this.carService.findById(carId);

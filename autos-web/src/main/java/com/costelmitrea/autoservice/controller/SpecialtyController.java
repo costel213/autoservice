@@ -71,7 +71,7 @@ public class SpecialtyController {
     }
 
     @GetMapping("/specialtiesList")
-    public String showspecialties(Model model) {
+    public String showSpecialties(Model model) {
         model.addAttribute("specialties", specialtyService.findAll());
         return "specialties/specialtiesList";
     }
