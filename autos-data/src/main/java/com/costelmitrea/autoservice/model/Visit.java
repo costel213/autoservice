@@ -16,7 +16,6 @@ import java.time.LocalDate;
 public class Visit extends BaseEntity{
 
     @Column(name = "visit_date")
-    @NotEmpty
     private LocalDate date;
 
     @Column(name = "description")

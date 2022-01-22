@@ -40,7 +40,7 @@
     <orderEntry type="library" scope="RUNTIME" name="Maven: com.h2database:h2:2.0.204" level="project" />
     <orderEntry type="library" name="Maven: org.projectlombok:lombok:1.18.22" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Maven: org.hsqldb:hsqldb:2.6.1" level="project" />
-    <orderEntry type="library" scope="RUNTIME" name="Maven: org.mariadb.jdbc:mariadb-java-client:2.7.4" level="project" />
+    <orderEntry type="library" name="Maven: mysql:mysql-connector-java:8.0.27" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter-validation:2.6.2" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter:2.6.2" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot:2.6.2" level="project" />
