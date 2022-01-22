@@ -14,6 +14,8 @@ jobs:
     docker:
       - image: cimg/openjdk:11.0
       - image: circleci/mysql:5.7-ram
+        environment:
+          - MYSQL_ROOT_PASSWORD=Tica123456789.
     # Add steps to the job
     # See: https://circleci.com/docs/2.0/configuration-reference/#steps
     steps:
