@@ -18,10 +18,12 @@ jobs:
           DB_URL: jdbc:mysql://localhost:3306/autoservice
           DB_DRIVER: com.mysql.cj.jdbc.Driver
           DB_PASS: ""
+      MAVEN_OPTS: -Xmx3200m
       - image: circleci/mysql:8.0.27
         environment:
           MYSQL_ALLOW_EMPTY_PASSWORD: yes
           MYSQL_ROOT_PASSWORD: ''
+    working_directory: ~/repo
     # Add steps to the job
     # See: https://circleci.com/docs/2.0/configuration-reference/#steps
     steps:
@@ -43,5 +45,5 @@ jobs:
 workflows:
   sample: # This is the name of the workflow, feel free to change it to better match your workflow.
     # Inside the workflow, you define the jobs you want to run.
-    jobs:
-      - build-and-test
+#    jobs:
+#      - build-and-test
