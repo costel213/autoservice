@@ -13,11 +13,6 @@ jobs:
     # A list of available CircleCI Docker Convenience Images are available here: https://circleci.com/developer/images/image/cimg/openjdk
     docker:
       - image: cimg/openjdk:11.0
-        environment:
-          DB_ROOT_USER: root
-          DB_URL: jdbc:mysql://localhost:3306/autoservice
-          DB_DRIVER: com.mysql.cj.jdbc.Driver
-          DB_PASS: ""
       - image: circleci/mysql:8.0.27
         environment:
           MYSQL_ALLOW_EMPTY_PASSWORD: yes
@@ -44,5 +39,5 @@ jobs:
 workflows:
   sample: # This is the name of the workflow, feel free to change it to better match your workflow.
     # Inside the workflow, you define the jobs you want to run.
-#    jobs:
-#      - build-and-test
+   jobs:
+     - build-and-test
