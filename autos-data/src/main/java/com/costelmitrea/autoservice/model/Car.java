@@ -4,14 +4,15 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.beans.support.MutableSortDefinition;
+import org.springframework.beans.support.PropertyComparator;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Setter
 @Getter
@@ -26,7 +27,6 @@ public class Car extends BaseEntity{
     private String model;
 
     @Column(name = "date_of_production")
-    @NotEmpty
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateOfProduction;
 
@@ -62,11 +62,11 @@ public class Car extends BaseEntity{
         return this.visits;
     }
 
-    public Visit getVisits(LocalDate date) {
-        return getVisits(date, false);
+    public Visit getVisit(LocalDate date) {
+        return getVisit(date, false);
     }
 
-    public Visit getVisits(LocalDate date, boolean ignoreNew) {
+    public Visit getVisit(LocalDate date, boolean ignoreNew) {
         for(Visit visit : getVisitsInternal()) {
             if(!ignoreNew || !visit.isNew()) {
                 LocalDate compDate = visit.getDate();
@@ -83,12 +83,17 @@ public class Car extends BaseEntity{
         this.visits = visits;
     }
 
-//    public List<Visit> getVisits() {
-//        List<Visit> sortedVisits = new ArrayList<>(getVisitsInternal());
-//        PropertyComparator.sort(sortedVisits,
-//                new MutableSortDefinition("date", false, false));
-//        return Collections.unmodifiableList(sortedVisits);
-//    }
+    public List<Visit> getVisits() {
+        List<Visit> sortedVisits = new ArrayList<>(getVisitsInternal());
+//        for(Visit visit :getVisitsInternal()) {
+//            if(visit.getId() != null) {
+//                sortedVisits.add(visit);
+//            }
+//        }
+        PropertyComparator.sort(sortedVisits,
+                new MutableSortDefinition("date", false, false));
+        return Collections.unmodifiableList(sortedVisits);
+    }
 
     public void addVisit(Visit visit) {
         if(visit.isNew()) {

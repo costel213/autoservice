@@ -24,7 +24,7 @@
             <a th:href="@{/mechanics/__${mechanic.id}__}" th:text="${mechanic.firstName + ' ' + mechanic.lastName}"></td>
         <td>
             <span th:each="specialty : ${mechanic.specialties}"
-                  th:text="${specialty.Name + ' '}"/> <span
+                  th:text="${specialty.Name + ', '}"/> <span
                 th:if="${mechanic.specialties.size() == 0}">none</span></td>
         <div sec:authorize="hasRole('ADMIN')">
             <td>

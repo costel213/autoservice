@@ -1,5 +1,6 @@
 package com.costelmitrea.autoservice.services.map;
 
+import com.costelmitrea.autoservice.model.Car;
 import com.costelmitrea.autoservice.model.Visit;
 import com.costelmitrea.autoservice.services.CarService;
 import com.costelmitrea.autoservice.services.CarTypeService;
@@ -75,7 +76,9 @@ public class VisitMapService extends AbstractMapService<Visit, Long> implements 
 
     @Override
     public void delete(Visit object) {
-        super.delete(object);
+//        super.delete(object);
+        Car car = object.getCar();
+        car.getVisitsInternal().remove(object);
     }
 
     @Override

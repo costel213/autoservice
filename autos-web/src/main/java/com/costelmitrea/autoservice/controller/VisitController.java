@@ -89,7 +89,6 @@ public class VisitController {
 
     @GetMapping("/clients/{clientId}/cars/{carId}/visits/{visitId}/deleted")
     public String processDeleteVisit(@PathVariable("visitId") Long visitId) {
-        System.out.println(visitService.findById(visitId).getId());
         this.visitService.deleteById(visitId);
         return "redirect:/clients/{clientId}";
     }

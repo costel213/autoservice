@@ -26,6 +26,12 @@
         <th>Telephone</th>
         <td th:text="*{telephone}"></td>
     </tr>
+    <tr>
+        <th>Spcialties</th>
+        <td><span th:each="specialty : ${mechanic.specialties}"
+                  th:text="${specialty.Name + ', '}"/> <span
+                th:if="${mechanic.specialties.size() == 0}">none</span></td>
+    </tr>
 </table>
 
 <a th:href="@{{id}/edit(id=${mechanic.id})}" class="btn btn-default">Edit

@@ -26,7 +26,8 @@ public class Mechanic extends Person{
     @OneToMany(mappedBy = "mechanic", fetch = FetchType.EAGER)
     Set<Visit> visits;
     @Builder
-    public Mechanic(Long id, String firstName, String lastName, String address, String city, String telephone, Set<Specialty> specialties, Set<Experience> experience, Set<Visit> visits) {
+    public Mechanic(Long id, String firstName, String lastName, String address, String city, String telephone, Set<Specialty> specialties,
+                    Set<Experience> experience, Set<Visit> visits) {
         super(firstName, lastName, address, city, telephone);
         this.specialties = specialties;
         this.experience = experience;

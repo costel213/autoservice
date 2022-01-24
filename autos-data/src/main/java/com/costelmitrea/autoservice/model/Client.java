@@ -46,6 +46,11 @@ public class Client extends Person{
 
     public List<Car> getCars() {
         List<Car> sortedCars = new ArrayList<>(getCarsInternal());
+//        for(Car car : getCarsInternal()) {
+//            if(car.getId() != null) {
+//                sortedCars.add(car);
+//            }
+//        }
         PropertyComparator.sort(sortedCars,
                 new MutableSortDefinition("model", true, true));
         return Collections.unmodifiableList(sortedCars);
