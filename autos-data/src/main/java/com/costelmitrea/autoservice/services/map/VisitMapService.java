@@ -35,7 +35,16 @@ public class VisitMapService extends AbstractMapService<Visit, Long> implements 
 
     @Override
     public Visit save(Visit object) {
-        return super.save(object);
+        if(object.getId() == null) {
+            return super.save(object);
+        } else {
+            Visit existingVisit = this.findById(object.getId());
+            existingVisit.setDate(object.getDate());
+            existingVisit.setDescription(object.getDescription());
+            existingVisit.setCar(object.getCar());
+            existingVisit.setMechanic(object.getMechanic());
+            return existingVisit;
+        }
     }
 
     @Override

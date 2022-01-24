@@ -18,7 +18,13 @@ public class CarTypeMapService extends AbstractMapService<CarType, Long> impleme
 
     @Override
     public CarType save(CarType object) {
-        return super.save(object);
+        if(object.getId() == null) {
+            return super.save(object);
+        } else {
+            CarType existingCarType = this.findById(object.getId());
+            existingCarType.setName(object.getName());
+            return existingCarType;
+        }
     }
 
     @Override

@@ -19,7 +19,18 @@ public class CarMapService extends AbstractMapService<Car, Long> implements CarS
 
     @Override
     public Car save(Car object) {
-        return super.save(object);
+        if(object.getId() == null) {
+            return super.save(object);
+        } else {
+            Car existingCar = this.findById(object.getId());
+            existingCar.setModel(object.getModel());
+            existingCar.setDateOfProduction(object.getDateOfProduction());
+            existingCar.setOwner(object.getOwner());
+            existingCar.setCarType(object.getCarType());
+            existingCar.setVisitsInternal(object.getVisitsInternal());
+            return existingCar;
+        }
+
     }
 
     @Override

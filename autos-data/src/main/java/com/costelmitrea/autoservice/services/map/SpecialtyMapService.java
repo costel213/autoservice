@@ -18,7 +18,13 @@ public class SpecialtyMapService extends AbstractMapService<Specialty, Long> imp
 
     @Override
     public Specialty save(Specialty object) {
-        return super.save(object);
+        if (object.getId() == null) {
+            return super.save(object);
+        } else {
+            Specialty existingSpecialty = this.findById(object.getId());
+            existingSpecialty.setName(object.getName());
+            return existingSpecialty;
+        }
     }
 
     @Override

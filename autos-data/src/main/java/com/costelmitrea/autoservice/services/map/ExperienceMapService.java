@@ -19,7 +19,15 @@ public class ExperienceMapService extends AbstractMapService<Experience, Long> i
 
     @Override
     public Experience save(Experience object) {
-        return super.save(object);
+        if(object.getId() == null) {
+            return super.save(object);
+        } else {
+            Experience existingExperience = this.findById(object.getId());
+            existingExperience.setTimeInterval(object.getTimeInterval());
+            existingExperience.setPosition(object.getPosition());
+            existingExperience.setMechanic(object.getMechanic());
+            return existingExperience;
+        }
     }
 
     @Override

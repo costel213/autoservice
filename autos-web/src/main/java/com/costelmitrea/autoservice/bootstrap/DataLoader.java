@@ -20,8 +20,11 @@ public class DataLoader implements CommandLineRunner {
     private final ExperienceService experienceService;
     private final CarService carService;
     private final ClientService clientService;
+    private final VisitService visitService;
 
-    public DataLoader(SimpleGrantedAuthorityService simpleGrantedauthorityService, CarTypeService carTypeService, SpecialtyService specialtyService, MechanicService mechanicService, UserService userService, ExperienceService experienceService, CarService carService, ClientService clientService) {
+    public DataLoader(SimpleGrantedAuthorityService simpleGrantedauthorityService, CarTypeService carTypeService,
+                      SpecialtyService specialtyService, MechanicService mechanicService, UserService userService,
+                      ExperienceService experienceService, CarService carService, ClientService clientService, VisitService visitService) {
         this.simpleGrantedauthorityService = simpleGrantedauthorityService;
         this.carTypeService = carTypeService;
         this.specialtyService = specialtyService;
@@ -30,6 +33,7 @@ public class DataLoader implements CommandLineRunner {
         this.experienceService = experienceService;
         this.carService = carService;
         this.clientService = clientService;
+        this.visitService = visitService;
     }
 
     @Override
@@ -195,5 +199,51 @@ public class DataLoader implements CommandLineRunner {
         mechanic4.getSpecialtiesInternal().add(savedSpecialty4);
         mechanic2.getSpecialtiesInternal().add(savedSpecialty7);
         mechanicService.save(mechanic4);
+
+        Visit visit = new Visit();
+        visit.setDate(LocalDate.now());
+        visit.setDescription("Change gear oil");
+        visit.setMechanic(mechanic2);
+        visit.setCar(car);
+        car.addVisit(visit);
+        visitService.save(visit);
+
+        Visit visit2 = new Visit();
+        visit2.setDate(LocalDate.of(2021, Month.AUGUST, 16));
+        visit2.setDescription("Repair air conditioning system");
+        visit2.setMechanic(mechanic);
+        visit2.setCar(car3);
+        car3.addVisit(visit2);
+        visitService.save(visit2);
+
+        Visit visit3 = new Visit();
+        visit3.setDate(LocalDate.of(2022, Month.JANUARY, 13));
+        visit3.setDescription("verify manual drive train");
+        visit3.setMechanic(mechanic3);
+        visit3.setCar(car2);
+        car2.addVisit(visit3);
+        visitService.save(visit3);
+
+        Visit visit4 = new Visit();
+        visit4.setDate(LocalDate.of(2021, Month.NOVEMBER, 30));
+        visit4.setDescription("Change tyres");
+        visit4.setMechanic(mechanic4);
+        visit4.setCar(car4);
+        car4.addVisit(visit4);
+        visitService.save(visit4);
+
+        Experience experience = new Experience();
+        experience.setTimeInterval("02/2014-12/2018");
+        experience.setPosition("Engine repair mechanic");
+        experience.setMechanic(mechanic);
+        mechanic.addExperience(experience);
+        experienceService.save(experience);
+
+        Experience experience1 = new Experience();
+        experience1.setTimeInterval("01/2019-12/2021");
+        experience1.setPosition("Engine performance mechanic");
+        experience1.setMechanic(mechanic);
+        mechanic.addExperience(experience1);
+        experienceService.save(experience1);
     }
 }
