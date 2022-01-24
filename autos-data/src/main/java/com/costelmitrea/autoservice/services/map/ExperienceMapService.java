@@ -1,6 +1,7 @@
 package com.costelmitrea.autoservice.services.map;
 
 import com.costelmitrea.autoservice.model.Experience;
+import com.costelmitrea.autoservice.model.Mechanic;
 import com.costelmitrea.autoservice.services.ExperienceService;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
@@ -28,11 +29,16 @@ public class ExperienceMapService extends AbstractMapService<Experience, Long> i
 
     @Override
     public void deleteById(Long id) {
+        Experience experience = this.findById(id);
+        Mechanic mechanic = experience.getMechanic();
+        mechanic.getExperienceInternal().remove(experience);
         super.deleteById(id);
     }
 
     @Override
     public void delete(Experience object) {
+        Mechanic mechanic = object.getMechanic();
+        mechanic.getExperienceInternal().remove(object);
         super.delete(object);
     }
 }

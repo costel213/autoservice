@@ -1,9 +1,11 @@
 package com.costelmitrea.autoservice.services.map;
 
 import com.costelmitrea.autoservice.model.Car;
+import com.costelmitrea.autoservice.model.Client;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDate;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -14,11 +16,20 @@ class CarMapServiceTest {
     CarMapService carMapService;
     final Long car1Id = 1L, car2Id = 2L;
     final String model = "Dacia";
+    Car car;
+    Client client;
 
     @BeforeEach
     void setUp() {
         carMapService = new CarMapService();
+        car = new Car();
+        car.setModel("Ford");
+        car.setDateOfProduction(LocalDate.now());
+
+        client = Client.builder().id(1L).build();
+        client.addCar(car);
         carMapService.save(Car.builder().model(model).build());
+        carMapService.save(car);
     }
 
     @Test
@@ -37,19 +48,21 @@ class CarMapServiceTest {
     @Test
     void findAll() {
         Set<Car> carSet = carMapService.findAll();
-        assertEquals(1, carSet.size());
+        assertEquals(2, carSet.size());
     }
 
     @Test
     void deleteById() {
-        carMapService.deleteById(car1Id);
-        assertEquals(0, carMapService.findAll().size());
+        client.getCarsInternal().remove(car);
+        carMapService.deleteById(car.getId());
+        assertEquals(1, carMapService.findAll().size());
     }
 
     @Test
     void delete() {
-        carMapService.delete(carMapService.findById(car1Id));
-        assertEquals(0, carMapService.findAll().size());
+        client.getCarsInternal().remove(car);
+        carMapService.delete(car);
+        assertEquals(1, carMapService.findAll().size());
     }
 
     @Test

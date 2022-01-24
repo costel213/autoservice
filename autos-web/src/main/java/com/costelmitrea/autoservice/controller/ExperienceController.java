@@ -51,7 +51,7 @@ public class ExperienceController {
     @PostMapping("/experience/new")
     public String processCreationForm(Mechanic mechanic, @Validated Experience experience,
                                       BindingResult bindingResult, ModelMap model) {
-        if(StringUtils.hasLength(experience.getTimeInterval()) && experience.isNew() && mechanic.getExperience(experience.getTimeInterval(), true) != null) {
+        if(StringUtils.hasLength(experience.getTimeInterval()) && experience.isNew() && mechanic.getSingleExperience(experience.getTimeInterval(), true) != null) {
             bindingResult.rejectValue("timeInterval", "duplicate", "already exists");
         }
         mechanic.addExperience(experience);

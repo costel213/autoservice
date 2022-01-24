@@ -35,14 +35,15 @@ public class ClientMapService extends AbstractMapService<Client, Long> implement
 
     @Override
     public List<Client> findAllByLastNameLike(String lastName) {
-        if(lastName.equalsIgnoreCase("")) {
+        if(lastName.equalsIgnoreCase("%%")) {
             List<Client> foundClients = new ArrayList<>();
             foundClients.addAll(this.findAll());
             return foundClients;
         } else {
             return this.findAll()
                     .stream()
-                    .filter(client -> client.getLastName().equalsIgnoreCase(lastName))
+                    .filter(client -> client.getLastName().toLowerCase().startsWith(
+                            lastName.substring(1, lastName.length() - 1).toLowerCase()))
                     .collect(Collectors.toList());
         }
     }
@@ -54,27 +55,7 @@ public class ClientMapService extends AbstractMapService<Client, Long> implement
 
     @Override
     public Client save(Client object) {
-        if(object != null) {
-            if(object.getCarsInternal() != null) {
-                object.getCarsInternal().forEach(car -> {
-                    if(car.getCarType() != null) {
-                        if(car.getCarType().getId() == null) {
-                            car.getCarType().setId(carTypeService.save(car.getCarType()).getId());
-                        }
-                    } else {
-                        throw new RuntimeException("CarType is required.");
-                    }
-
-                    if(car.getId() == null) {
-                        car.setId(carService.save(car).getId());
-                    }
-                });
-            }
-
-            return super.save(object);
-        } else {
-            return null;
-        }
+        return super.save(object);
     }
 
     @Override

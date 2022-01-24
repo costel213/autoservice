@@ -1,10 +1,12 @@
 package com.costelmitrea.autoservice.services.map;
 
+import com.costelmitrea.autoservice.model.Car;
 import com.costelmitrea.autoservice.model.Mechanic;
 import com.costelmitrea.autoservice.model.Visit;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDate;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -15,12 +17,20 @@ class VisitMapServiceTest {
     VisitMapService visitMapService;
     final Long visitId = 1L, visit2Id = 2L;
     final String visitDescription = "Change tyres";
+    Car car;
+    Visit visit;
 
     @BeforeEach
     void setUp() {
         visitMapService = new VisitMapService(new CarMapService(), new CarTypeMapService(),
                 new ClientMapService(new CarTypeMapService(), new CarMapService()), new MechanicMapService(new SpecialtyMapService()));
         visitMapService.save(Visit.builder().description(visitDescription).mechanic(new Mechanic()).build());
+        car = Car.builder().id(1L).build();
+        visit = new Visit();
+        visit.setDescription("Repair fog lights");
+        visit.setDate(LocalDate.now());
+        car.addVisit(visit);
+        visitMapService.save(visit);
     }
 
     @Test
@@ -39,19 +49,21 @@ class VisitMapServiceTest {
     @Test
     void findAll() {
         Set<Visit> visitsSet = visitMapService.findAll();
-        assertEquals(1, visitsSet.size());
+        assertEquals(2, visitsSet.size());
     }
 
     @Test
     void delete() {
-        visitMapService.delete(visitMapService.findById(visitId));
-        assertEquals(0, visitMapService.findAll().size());
+        car.getVisitsInternal().remove(visit);
+        visitMapService.delete(visit);
+        assertEquals(1, visitMapService.findAll().size());
     }
 
     @Test
     void deleteById() {
-        visitMapService.deleteById(visitId);
-        assertEquals(0, visitMapService.findAll().size());
+        car.getVisitsInternal().remove(visit);
+        visitMapService.deleteById(visit.getId());
+        assertEquals(1, visitMapService.findAll().size());
     }
 
     @Test

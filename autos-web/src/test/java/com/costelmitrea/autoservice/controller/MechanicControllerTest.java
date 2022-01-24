@@ -171,7 +171,7 @@ class MechanicControllerTest {
     void deleteMechanic() throws Exception{
         mockMvc.perform(get("/mechanics/{mechanicId}/deleted", TEST_MECHANIC_ID))
                 .andExpect(status().is3xxRedirection())
-                .andExpect(view().name("redirect:/mechanics/index"));
+                .andExpect(view().name("redirect:/mechanics"));
     }
 
     @Test

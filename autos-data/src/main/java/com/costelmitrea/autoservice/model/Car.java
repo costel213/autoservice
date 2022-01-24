@@ -84,12 +84,12 @@ public class Car extends BaseEntity{
     }
 
     public List<Visit> getVisits() {
-        List<Visit> sortedVisits = new ArrayList<>(getVisitsInternal());
-//        for(Visit visit :getVisitsInternal()) {
-//            if(visit.getId() != null) {
-//                sortedVisits.add(visit);
-//            }
-//        }
+        List<Visit> sortedVisits = new ArrayList<>();
+        for(Visit visit :getVisitsInternal()) {
+            if(visit.getId() != null) {
+                sortedVisits.add(visit);
+            }
+        }
         PropertyComparator.sort(sortedVisits,
                 new MutableSortDefinition("date", false, false));
         return Collections.unmodifiableList(sortedVisits);

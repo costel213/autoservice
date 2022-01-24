@@ -46,13 +46,9 @@ public class Mechanic extends Person{
         this.specialties = specialties;
     }
 
-//    public List<Specialty> getSpecialties() {
-//        List<Specialty> sortedSpecialties = new ArrayList<>(getSpecialtiesInternal());
-//        PropertyComparator.sort(sortedSpecialties,
-//                new MutableSortDefinition("name", true, true));
-//
-//        return Collections.unmodifiableList(sortedSpecialties);
-//    }
+    public Set<Specialty> getSpecialties() {
+        return getSpecialtiesInternal();
+    }
 
     public int getNrOfSpecialties() {
         return getSpecialtiesInternal().size();
@@ -70,11 +66,11 @@ public class Mechanic extends Person{
         return this.experience;
     }
 
-    public Experience getExperience(String timeInterval) {
-        return getExperience(timeInterval, false);
+    public Experience getSingleExperience(String timeInterval) {
+        return getSingleExperience(timeInterval, false);
     }
 
-    public Experience getExperience(String timeInterval, boolean ignoreNew) {
+    public Experience getSingleExperience(String timeInterval, boolean ignoreNew) {
         for(Experience experience : getExperienceInternal()) {
             if(!ignoreNew || !experience.isNew()) {
                 String compTimeInterval = experience.getTimeInterval();
@@ -91,11 +87,18 @@ public class Mechanic extends Person{
         this.experience = experience;
     }
 
-//    @XmlElement
-//    public TreeSet<Experience> getExperience() {
-//        TreeSet<Experience> chronologicalExperience = new TreeSet<>(getExperienceInternal());
-//        return chronologicalExperience;
-//    }
+    public List<Experience> getExperience() {
+        List<Experience> chronologicalExperience = new ArrayList<>();
+        for(Experience experience : getExperienceInternal()) {
+            if(experience.getId() != null) {
+                chronologicalExperience.add(experience);
+            }
+        }
+        PropertyComparator.sort(chronologicalExperience,
+                new MutableSortDefinition("timeInterval", true, true));
+
+        return Collections.unmodifiableList(chronologicalExperience);
+    }
 
     public void addExperience(Experience experience) {
         if(experience.isNew()) {

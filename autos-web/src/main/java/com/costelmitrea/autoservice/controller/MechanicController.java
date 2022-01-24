@@ -86,10 +86,10 @@ public class MechanicController {
     @GetMapping("/mechanics/{mechanicId}/deleted")
     public String deleteMechanic(@PathVariable("mechanicId") Long mechanicId) {
         this.mechanicService.deleteById(mechanicId);
-            return "redirect:/mechanics/index";
+            return "redirect:/mechanics";
     }
 
-    @GetMapping("mechanics")
+    @GetMapping("/mechanics")
     public String listMechanics(Model model) {
         model.addAttribute("mechanics", mechanicService.findAll());
         return "mechanics/index";

@@ -6,6 +6,9 @@ import com.costelmitrea.autoservice.services.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
+import java.time.Month;
+
 @Component
 public class DataLoader implements CommandLineRunner {
 
@@ -15,14 +18,18 @@ public class DataLoader implements CommandLineRunner {
     private final MechanicService mechanicService;
     private final UserService userService;
     private final ExperienceService experienceService;
+    private final CarService carService;
+    private final ClientService clientService;
 
-    public DataLoader(SimpleGrantedAuthorityService simpleGrantedauthorityService, CarTypeService carTypeService, SpecialtyService specialtyService, MechanicService mechanicService, UserService userService, ExperienceService experienceService) {
+    public DataLoader(SimpleGrantedAuthorityService simpleGrantedauthorityService, CarTypeService carTypeService, SpecialtyService specialtyService, MechanicService mechanicService, UserService userService, ExperienceService experienceService, CarService carService, ClientService clientService) {
         this.simpleGrantedauthorityService = simpleGrantedauthorityService;
         this.carTypeService = carTypeService;
         this.specialtyService = specialtyService;
         this.mechanicService = mechanicService;
         this.userService = userService;
         this.experienceService = experienceService;
+        this.carService = carService;
+        this.clientService = clientService;
     }
 
     @Override
@@ -101,7 +108,53 @@ public class DataLoader implements CommandLineRunner {
         specialty7.setName("Suspension and Steering");
         Specialty savedSpecialty7 = specialtyService.save(specialty7);
 
+        Car car = new Car();
+        car.setModel("Dacia Duster");
+        car.setDateOfProduction(LocalDate.of(2021, Month.AUGUST, 23));
+        car.setCarType(savedCarType);
 
+        Car car2 = new Car();
+        car2.setModel("Audi A5");
+        car2.setDateOfProduction(LocalDate.of(2020, Month.FEBRUARY, 02));
+        car2.setCarType(savedCarType);
+
+        Car car3 = new Car();
+        car3.setModel("Ferrari Roma");
+        car3.setDateOfProduction(LocalDate.of(2022, Month.JANUARY, 11));
+        car3.setCarType(savedCarType3);
+
+        Car car4 = new Car();
+        car4.setModel("Ford F150");
+        car4.setDateOfProduction(LocalDate.of(2021, Month.APRIL, 30));
+        car4.setCarType(savedCarType2);
+
+        Client client = new Client();
+        client.setFirstName("Peter");
+        client.setLastName("Morrison");
+        client.setAddress("76 School's St.");
+        client.setCity("Falticeni");
+        client.setTelephone("5768493021");
+        car.setOwner(client);
+        client.addCar(car);
+        Car savedCar = carService.save(car);
+        car2.setOwner(client);
+        client.addCar(car2);
+        Car savedCar2 = carService.save(car2);
+        clientService.save(client);
+
+        Client client2 = new Client();
+        client2.setFirstName("Marcus");
+        client2.setLastName("Murray");
+        client2.setAddress("04 Court St.");
+        client2.setCity("Suceava");
+        client2.setTelephone("8675450393");
+        car3.setOwner(client2);
+        client2.addCar(car3);
+        Car savedCar3 = carService.save(car3);
+        car4.setOwner(client2);
+        client2.addCar(car4);
+        Car savedCar4 = carService.save(car4);
+        clientService.save(client2);
 
         Mechanic mechanic = new Mechanic();
         mechanic.setAddress("23 Main St.");

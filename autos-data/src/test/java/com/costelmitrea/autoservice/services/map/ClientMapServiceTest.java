@@ -37,7 +37,7 @@ class ClientMapServiceTest {
 
     @Test
     void findAllByLastNameLike() {
-        List<Client> clientsList = clientMapService.findAllByLastNameLike(lastName);
+        List<Client> clientsList = clientMapService.findAllByLastNameLike("%" + "wat" + "%");
         assertEquals(1, clientsList.size());
     }
 

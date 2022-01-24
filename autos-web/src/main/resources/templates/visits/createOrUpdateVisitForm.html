@@ -52,10 +52,12 @@
   <tr>
     <th>Date</th>
     <th>Description</th>
+    <th>Mechanic</th>
   </tr>
   <tr th:if="${!visit['new']}" th:each="visit : ${car.visits}">
     <td th:text="${#temporals.format(visit.date, 'yyyy-MM-dd')}"></td>
     <td th:text=" ${visit.description}"></td>
+    <td th:text=" ${visit.mechanic}"></td>
   </tr>
 </table>
 
