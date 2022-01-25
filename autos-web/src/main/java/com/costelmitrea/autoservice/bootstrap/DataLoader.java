@@ -204,6 +204,7 @@ public class DataLoader implements CommandLineRunner {
         visit.setDate(LocalDate.now());
         visit.setDescription("Change gear oil");
         visit.setMechanic(mechanic2);
+        mechanic2.addVisit(visit);
         visit.setCar(car);
         car.addVisit(visit);
         visitService.save(visit);
@@ -212,6 +213,7 @@ public class DataLoader implements CommandLineRunner {
         visit2.setDate(LocalDate.of(2021, Month.AUGUST, 16));
         visit2.setDescription("Repair air conditioning system");
         visit2.setMechanic(mechanic);
+        mechanic.addVisit(visit2);
         visit2.setCar(car3);
         car3.addVisit(visit2);
         visitService.save(visit2);
@@ -220,6 +222,7 @@ public class DataLoader implements CommandLineRunner {
         visit3.setDate(LocalDate.of(2022, Month.JANUARY, 13));
         visit3.setDescription("verify manual drive train");
         visit3.setMechanic(mechanic3);
+        mechanic3.addVisit(visit3);
         visit3.setCar(car2);
         car2.addVisit(visit3);
         visitService.save(visit3);
@@ -228,6 +231,7 @@ public class DataLoader implements CommandLineRunner {
         visit4.setDate(LocalDate.of(2021, Month.NOVEMBER, 30));
         visit4.setDescription("Change tyres");
         visit4.setMechanic(mechanic4);
+        mechanic4.addVisit(visit4);
         visit4.setCar(car4);
         car4.addVisit(visit4);
         visitService.save(visit4);

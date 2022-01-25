@@ -2,6 +2,8 @@ package com.costelmitrea.autoservice.controller;
 
 import com.costelmitrea.autoservice.model.CarType;
 import com.costelmitrea.autoservice.services.CarTypeService;
+import com.costelmitrea.autoservice.util.AttributesName;
+import com.costelmitrea.autoservice.util.ViewsName;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -31,14 +33,14 @@ public class CarTypeController {
     @GetMapping("/carTypes/new")
     public String initCreationForm(Map<String, Object> model) {
         CarType carType = new CarType();
-        model.put("carType", carType);
-        return "carTypes/createOrUpdateCarTypeForm";
+        model.put(AttributesName.CARTYPE, carType);
+        return ViewsName.CREATE_OR_UPDATE_CARTYPE_FORM;
     }
 
     @PostMapping("/carTypes/new")
     public String processCreationForm(@Validated CarType carType, BindingResult bindingResult) {
         if(bindingResult.hasErrors()) {
-            return "carTypes/createOrUpdateCarTypeForm";
+            return ViewsName.CREATE_OR_UPDATE_CARTYPE_FORM;
         } else {
             this.carTypeService.save(carType);
             return "redirect:/carTypesList";
@@ -49,14 +51,14 @@ public class CarTypeController {
     public String initUpdateForm(@PathVariable("carTypeId") Long carTypeId, Model model) {
         CarType carType = this.carTypeService.findById(carTypeId);
         model.addAttribute(carType);
-        return "carTypes/createOrUpdateCarTypeForm";
+        return ViewsName.CREATE_OR_UPDATE_CARTYPE_FORM;
     }
 
     @PostMapping("/carTypes/{carTypeId}/edit")
     public String processUpdateCarTypeForm(@Validated CarType carType, BindingResult bindingResult,
                                           @PathVariable("carTypeId") Long carTypeId) {
         if(bindingResult.hasErrors()) {
-            return "carTypes/createOrUpdateCarTypeForm";
+            return ViewsName.CREATE_OR_UPDATE_CARTYPE_FORM;
         } else {
             carType.setId(carTypeId);
             this.carTypeService.save(carType);
@@ -72,7 +74,7 @@ public class CarTypeController {
 
     @GetMapping("/carTypesList")
     public String showCarTypes(Model model) {
-        model.addAttribute("carTypes", carTypeService.findAll());
-        return "carTypes/carTypesList";
+        model.addAttribute(AttributesName.CARTYPES, carTypeService.findAll());
+        return ViewsName.CAR_TYPES_LIST;
     }
 }

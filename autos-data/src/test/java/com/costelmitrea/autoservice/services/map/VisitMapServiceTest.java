@@ -19,6 +19,7 @@ class VisitMapServiceTest {
     final String visitDescription = "Change tyres";
     Car car;
     Visit visit;
+    Mechanic mechanic;
 
     @BeforeEach
     void setUp() {
@@ -26,10 +27,13 @@ class VisitMapServiceTest {
                 new ClientMapService(new CarTypeMapService(), new CarMapService()), new MechanicMapService(new SpecialtyMapService()));
         visitMapService.save(Visit.builder().description(visitDescription).mechanic(new Mechanic()).build());
         car = Car.builder().id(1L).build();
+        mechanic = Mechanic.builder().id(1L).build();
         visit = new Visit();
         visit.setDescription("Repair fog lights");
         visit.setDate(LocalDate.now());
+        visit.setMechanic(mechanic);
         car.addVisit(visit);
+        mechanic.addVisit(visit);
         visitMapService.save(visit);
     }
 

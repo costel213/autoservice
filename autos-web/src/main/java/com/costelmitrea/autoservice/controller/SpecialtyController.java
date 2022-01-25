@@ -2,6 +2,8 @@ package com.costelmitrea.autoservice.controller;
 
 import com.costelmitrea.autoservice.model.Specialty;
 import com.costelmitrea.autoservice.services.SpecialtyService;
+import com.costelmitrea.autoservice.util.AttributesName;
+import com.costelmitrea.autoservice.util.ViewsName;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -31,14 +33,14 @@ public class SpecialtyController {
     @GetMapping("/specialties/new")
     public String initCreationForm(Map<String, Object> model) {
         Specialty specialty = new Specialty();
-        model.put("specialty", specialty);
-        return "specialties/createOrUpdateSpecialtyForm";
+        model.put(AttributesName.SPECIALTY, specialty);
+        return ViewsName.CREATE_OR_UPDATE_SPECIALTY_FORM;
     }
 
     @PostMapping("/specialties/new")
     public String processCreationForm(@Validated Specialty specialty, BindingResult bindingResult) {
         if(bindingResult.hasErrors()) {
-            return "specialties/createOrUpdateSpecialtyForm";
+            return ViewsName.CREATE_OR_UPDATE_SPECIALTY_FORM;
         } else {
             this.specialtyService.save(specialty);
             return "redirect:/specialtiesList";
@@ -49,14 +51,14 @@ public class SpecialtyController {
     public String initUpdateForm(@PathVariable("specialtyId") Long specialtyId, Model model) {
         Specialty specialty = this.specialtyService.findById(specialtyId);
         model.addAttribute(specialty);
-        return "specialties/createOrUpdateSpecialtyForm";
+        return ViewsName.CREATE_OR_UPDATE_SPECIALTY_FORM;
     }
 
     @PostMapping("/specialties/{specialtyId}/edit")
     public String processUpdateSpecialtyForm(@Validated Specialty specialty, BindingResult bindingResult,
                                           @PathVariable("specialtyId") Long specialtyId) {
         if(bindingResult.hasErrors()) {
-            return "specialties/createOrUpdateSpecialtyForm";
+            return ViewsName.CREATE_OR_UPDATE_SPECIALTY_FORM;
         } else {
             specialty.setId(specialtyId);
             this.specialtyService.save(specialty);
@@ -72,7 +74,7 @@ public class SpecialtyController {
 
     @GetMapping("/specialtiesList")
     public String showSpecialties(Model model) {
-        model.addAttribute("specialties", specialtyService.findAll());
-        return "specialties/specialtiesList";
+        model.addAttribute(AttributesName.SPECIALTIES, specialtyService.findAll());
+        return ViewsName.SPECIALTIES_LIST;
     }
 }

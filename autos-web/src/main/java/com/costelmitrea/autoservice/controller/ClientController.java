@@ -2,6 +2,8 @@ package com.costelmitrea.autoservice.controller;
 
 import com.costelmitrea.autoservice.model.Client;
 import com.costelmitrea.autoservice.services.ClientService;
+import com.costelmitrea.autoservice.util.AttributesName;
+import com.costelmitrea.autoservice.util.ViewsName;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -33,14 +35,14 @@ public class ClientController {
     @GetMapping("/clients/new")
     public String initCreationForm(Map<String, Object> model) {
         Client client = new Client();
-        model.put("client", client);
-        return "clients/createOrUpdateClientForm";
+        model.put(AttributesName.CLIENT, client);
+        return ViewsName.CREATE_OR_UPDATE_CLIENT_FORM;
     }
 
     @PostMapping("/clients/new")
     public String processCreationForm(@Validated Client client, BindingResult bindingResult) {
         if(bindingResult.hasErrors()) {
-            return "clients/createOrUpdateClientForm";
+            return ViewsName.CREATE_OR_UPDATE_CLIENT_FORM;
         } else {
             this.clientService.save(client);
             return "redirect:/clients/" + client.getId();
@@ -49,8 +51,8 @@ public class ClientController {
 
     @GetMapping("/clients/find")
     public String initFindForm(Map<String, Object> model) {
-        model.put("client", new Client());
-        return "clients/findClients";
+        model.put(AttributesName.CLIENT, new Client());
+        return ViewsName.FIND_CLIENTS;
     }
 
     @GetMapping("/clients")
@@ -62,13 +64,13 @@ public class ClientController {
         Collection<Client> results = this.clientService.findAllByLastNameLike("%" + client.getLastName() + "%");
         if(results.isEmpty()) {
             bindingResult.rejectValue("lastName", "notFound", "not found");
-            return "clients/findClients";
+            return ViewsName.FIND_CLIENTS;
         } else if(results.size() == 1) {
             client = results.iterator().next();
             return "redirect:/clients/" + client.getId();
         } else {
-            model.put("clients", results);
-            return "clients/clientsList";
+            model.put(AttributesName.CLIENTS, results);
+            return ViewsName.CLIENTS_LIST;
         }
     }
 
@@ -76,14 +78,14 @@ public class ClientController {
     public String initUpdateForm(@PathVariable("clientId") Long clientId, Model model) {
         Client client = this.clientService.findById(clientId);
         model.addAttribute(client);
-        return "clients/createOrUpdateClientForm";
+        return ViewsName.CREATE_OR_UPDATE_CLIENT_FORM;
     }
 
     @PostMapping("/clients/{clientId}/edit")
     public String processUpdateClientForm(@Validated Client client, BindingResult bindingResult,
                                           @PathVariable("clientId") Long clientId) {
         if(bindingResult.hasErrors()) {
-            return "clients/createOrUpdateClientForm";
+            return ViewsName.CREATE_OR_UPDATE_CLIENT_FORM;
         } else {
             client.setId(clientId);
             this.clientService.save(client);
@@ -96,7 +98,7 @@ public class ClientController {
         Client client = this.clientService.findById(clientId);
         model.addAttribute(client);
         this.clientService.delete(client);
-        return "clients/successDeleteClient";
+        return ViewsName.SUCCESS_DELETE_CLIENT;
     }
 
     @GetMapping("/clients/{clientId}/deleted")
@@ -106,19 +108,19 @@ public class ClientController {
             Client client = this.clientService.findAll().iterator().next();
             return "redirect:/clients/" + client.getId();
         }
-        return "clients/clientsList";
+        return ViewsName.CLIENTS_LIST;
     }
 
     @GetMapping("/clients/{clientId}")
     public ModelAndView showClient(@PathVariable("clientId") Long clientId) {
-        ModelAndView modelAndView = new ModelAndView("clients/clientDetails");
+        ModelAndView modelAndView = new ModelAndView(ViewsName.CLIENT_DETAILS);
         modelAndView.addObject(this.clientService.findById(clientId));
         return modelAndView;
     }
 
     @GetMapping("/clientsList")
     public String showClients(Model model) {
-        model.addAttribute("clients", clientService.findAll());
-        return "clients/clientsList";
+        model.addAttribute(AttributesName.CLIENTS, clientService.findAll());
+        return ViewsName.CLIENTS_LIST;
     }
 }

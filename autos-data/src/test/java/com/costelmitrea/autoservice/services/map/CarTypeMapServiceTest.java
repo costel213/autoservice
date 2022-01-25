@@ -29,7 +29,7 @@ class CarTypeMapServiceTest {
 
     @Test
     void save() {
-        CarType carType = CarType.builder().id(carType2Id).build();
+        CarType carType = CarType.builder().build();
         CarType savedCarType = carTypeMapService.save(carType);
         assertEquals(carType2Id, savedCarType.getId());
     }

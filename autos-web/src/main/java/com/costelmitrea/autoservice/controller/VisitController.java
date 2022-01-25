@@ -7,6 +7,8 @@ import com.costelmitrea.autoservice.services.CarService;
 import com.costelmitrea.autoservice.services.ClientService;
 import com.costelmitrea.autoservice.services.MechanicService;
 import com.costelmitrea.autoservice.services.VisitService;
+import com.costelmitrea.autoservice.util.AttributesName;
+import com.costelmitrea.autoservice.util.ViewsName;
 import com.costelmitrea.autoservice.validator.CarValidator;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -34,7 +36,7 @@ public class VisitController {
         this.clientService = clientService;
     }
 
-    @ModelAttribute("mechanics")
+    @ModelAttribute(AttributesName.MECHANICS)
     public Collection<Mechanic> populateMechanics() {
         return this.mechanicService.findAll();
     }
@@ -61,7 +63,7 @@ public class VisitController {
         });
     }
 
-    @ModelAttribute("car")
+    @ModelAttribute(AttributesName.CAR)
     public Car findCar (@PathVariable("carId") Long carId) {
         return this.carService.findById(carId);
     }
@@ -70,8 +72,8 @@ public class VisitController {
     public String initNewVisitForm(Car car, ModelMap model) {
         Visit visit = new Visit();
         car.addVisit(visit);
-        model.put("visit", visit);
-        return "visits/createOrUpdateVisitForm";
+        model.put(AttributesName.VISIT, visit);
+        return ViewsName.CREATE_OR_UPDATE_VISIT_FORM;
     }
 
     @PostMapping("/clients/{clientId}/cars/{carId}/visits/new")
@@ -79,8 +81,8 @@ public class VisitController {
                                       ModelMap model) {
         car.addVisit(visit);
         if(bindingResult.hasErrors()) {
-            model.put("visit", visit);
-            return "visits/createOrUpdateVisitForm";
+            model.put(AttributesName.VISIT, visit);
+            return ViewsName.CREATE_OR_UPDATE_VISIT_FORM;
         } else {
             this.visitService.save(visit);
             return "redirect:/clients/{clientId}";

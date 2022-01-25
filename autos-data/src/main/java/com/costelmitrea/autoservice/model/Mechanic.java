@@ -95,7 +95,7 @@ public class Mechanic extends Person{
             }
         }
         PropertyComparator.sort(chronologicalExperience,
-                new MutableSortDefinition("timeInterval", true, true));
+                new MutableSortDefinition("timeInterval", true, false));
 
         return Collections.unmodifiableList(chronologicalExperience);
     }
@@ -135,15 +135,4 @@ public class Mechanic extends Person{
 
         visit.setMechanic(this);
     }
-
-//    @Override
-//    public String toString() {
-//        StringBuilder sb = new StringBuilder();
-//        sb.append(this.getFirstName() + " " + this.getLastName() + " ");
-//        for(Specialty specialty : this.getSpecialtiesInternal()) {
-//            sb.append(specialty.getName() + "/");
-//        }
-//
-//        return sb.toString();
-//    }
 }

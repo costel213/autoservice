@@ -3,6 +3,8 @@ package com.costelmitrea.autoservice.controller;
 import com.costelmitrea.autoservice.model.User;
 import com.costelmitrea.autoservice.services.SimpleGrantedAuthorityService;
 import com.costelmitrea.autoservice.services.UserService;
+import com.costelmitrea.autoservice.util.AttributesName;
+import com.costelmitrea.autoservice.util.ViewsName;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -25,14 +27,14 @@ public class RegistrationController {
     @GetMapping("/register")
     public String initRegistrationForm(Map<String, Object> model){
         User user = new User();
-        model.put("user", user);
-        return "signupForm";
+        model.put(AttributesName.USER, user);
+        return ViewsName.SIGNUP_FORM;
     }
 
     @PostMapping("/register")
     public String processRegistrationForm(@Validated User user, BindingResult bindingResult){
         if(bindingResult.hasErrors()){
-            return "signupForm";
+            return ViewsName.SIGNUP_FORM;
         } else {
             BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
             String encodedPassword = passwordEncoder.encode(user.getPassword());
@@ -44,6 +46,6 @@ public class RegistrationController {
 
     @GetMapping("/registeredSuccessfully")
     public String homeRegistration() {
-        return "indexAfterRegistration";
+        return ViewsName.INDEX_AFTER_REGISTRATION;
     }
 }

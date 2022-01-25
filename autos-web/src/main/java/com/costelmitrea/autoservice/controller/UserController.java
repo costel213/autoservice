@@ -4,6 +4,8 @@ import com.costelmitrea.autoservice.model.SimpleGrantedAuthority;
 import com.costelmitrea.autoservice.model.User;
 import com.costelmitrea.autoservice.services.SimpleGrantedAuthorityService;
 import com.costelmitrea.autoservice.services.UserService;
+import com.costelmitrea.autoservice.util.AttributesName;
+import com.costelmitrea.autoservice.util.ViewsName;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,7 +15,6 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
-import java.util.Map;
 
 @Controller
 public class UserController {
@@ -33,40 +34,23 @@ public class UserController {
         dataBinder.setDisallowedFields("id");
     }
 
-    @ModelAttribute("roles")
+    @ModelAttribute(AttributesName.ROLES)
     public Collection<SimpleGrantedAuthority> populateRoles() {
         return this.simpleGrantedAuthorityService.findAll();
-    }
-
-    @GetMapping("/users/new")
-    public String initCreationForm(Map<String, Object> model) {
-        User user = new User();
-        model.put("user", user);
-        return "users/createOrUpdateUserForm";
-    }
-
-    @PostMapping("/users/new")
-    public String processCreationForm(@Validated User user, BindingResult bindingResult) {
-        if(bindingResult.hasErrors()) {
-            return "users/createOrUpdateUserForm";
-        } else {
-            this.userService.save(user);
-            return "redirect:/users/usersList";
-        }
     }
 
     @GetMapping("/users/{userId}/edit")
     public String initUpdateForm(@PathVariable("userId") Long userId, Model model) {
         User user = this.userService.findById(userId);
         model.addAttribute(user);
-        return "users/createOrUpdateUserForm";
+        return ViewsName.CREATE_OR_UPDATE_USER_FORM;
     }
 
     @PostMapping("/users/{userId}/edit")
     public String processUpdateForm(@Validated User user, BindingResult bindingResult,
                                     @PathVariable("userId") Long userId) {
         if(bindingResult.hasErrors()) {
-            return "users/createOrUpdateUserForm";
+            return ViewsName.CREATE_OR_UPDATE_USER_FORM;
         } else {
             User userDetails = this.userService.findById(userId);
             user.setFirstName(userDetails.getFirstName());
@@ -87,6 +71,6 @@ public class UserController {
     @GetMapping("/usersList")
     public String listUsers(Model model) {
         model.addAttribute("users", userService.findAll());
-        return "users/usersList";
+        return ViewsName.USERS_LIST;
     }
 }

@@ -29,7 +29,7 @@ class SpecialtyMapServiceTest {
 
     @Test
     void save() {
-        Specialty specialty2 = Specialty.builder().id(specialty2Id).build();
+        Specialty specialty2 = Specialty.builder().build();
         Specialty savedSpecialty = specialtyMapService.save(specialty2);
         assertEquals(specialty2Id, savedSpecialty.getId());
     }

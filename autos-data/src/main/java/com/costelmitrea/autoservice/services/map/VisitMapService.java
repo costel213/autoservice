@@ -1,6 +1,7 @@
 package com.costelmitrea.autoservice.services.map;
 
 import com.costelmitrea.autoservice.model.Car;
+import com.costelmitrea.autoservice.model.Mechanic;
 import com.costelmitrea.autoservice.model.Visit;
 import com.costelmitrea.autoservice.services.CarService;
 import com.costelmitrea.autoservice.services.CarTypeService;
@@ -36,6 +37,8 @@ public class VisitMapService extends AbstractMapService<Visit, Long> implements 
     @Override
     public Visit save(Visit object) {
         if(object.getId() == null) {
+            Mechanic mechanic = object.getMechanic();
+            mechanic.addVisit(object);
             return super.save(object);
         } else {
             Visit existingVisit = this.findById(object.getId());
@@ -43,6 +46,8 @@ public class VisitMapService extends AbstractMapService<Visit, Long> implements 
             existingVisit.setDescription(object.getDescription());
             existingVisit.setCar(object.getCar());
             existingVisit.setMechanic(object.getMechanic());
+            Mechanic mechanic = existingVisit.getMechanic();
+            mechanic.addVisit(existingVisit);
             return existingVisit;
         }
     }

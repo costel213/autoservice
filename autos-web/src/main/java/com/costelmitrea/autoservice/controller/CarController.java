@@ -6,6 +6,8 @@ import com.costelmitrea.autoservice.model.Client;
 import com.costelmitrea.autoservice.services.CarService;
 import com.costelmitrea.autoservice.services.CarTypeService;
 import com.costelmitrea.autoservice.services.ClientService;
+import com.costelmitrea.autoservice.util.AttributesName;
+import com.costelmitrea.autoservice.util.ViewsName;
 import com.costelmitrea.autoservice.validator.CarValidator;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -15,6 +17,8 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
+import java.beans.PropertyEditorSupport;
+import java.time.LocalDate;
 import java.util.Collection;
 
 @Controller
@@ -31,12 +35,12 @@ public class CarController {
         this.carTypeService = carTypeService;
     }
 
-    @ModelAttribute("types")
+    @ModelAttribute(AttributesName.TYPES)
     public Collection<CarType> populateCarTypes() {
         return this.carTypeService.findAll();
     }
 
-    @ModelAttribute("client")
+    @ModelAttribute(AttributesName.CLIENT)
     public Client findClient(@PathVariable("clientId") Long clientId) {
         return this.clientService.findById(clientId);
     }
@@ -49,14 +53,21 @@ public class CarController {
     @InitBinder("car")
     public void initCarBinder(WebDataBinder dataBinder) {
         dataBinder.setValidator(new CarValidator());
+
+        dataBinder.registerCustomEditor(LocalDate.class, new PropertyEditorSupport() {
+            @Override
+            public void setAsText(String text) throws IllegalArgumentException {
+                setValue(LocalDate.parse(text));
+            }
+        });
     }
 
     @GetMapping("/cars/new")
     public String initCreationForm(Client client, ModelMap model) {
         Car car = new Car();
         client.addCar(car);
-        model.put("car", car);
-        return "cars/createOrUpdateCarForm";
+        model.put(AttributesName.CAR, car);
+        return ViewsName.CREATE_OR_UPDATE_CAR_FORM;
     }
 
     @PostMapping("/cars/new")
@@ -67,8 +78,8 @@ public class CarController {
         }
         client.addCar(car);
         if(bindingResult.hasErrors()){
-            model.put("car", car);
-            return "cars/createOrUpdateCarForm";
+            model.put(AttributesName.CAR, car);
+            return ViewsName.CREATE_OR_UPDATE_CAR_FORM;
         } else {
             this.carService.save(car);
             return "redirect:/clients/{clientId}";
@@ -78,16 +89,16 @@ public class CarController {
     @GetMapping("/cars/{carId}/edit")
     public String initUpdateForm(@PathVariable("carId") Long carId, ModelMap model) {
         Car car = this.carService.findById(carId);
-        model.put("car", car);
-        return "cars/createOrUpdateCarForm";
+        model.put(AttributesName.CAR, car);
+        return ViewsName.CREATE_OR_UPDATE_CAR_FORM;
     }
 
     @PostMapping("/cars/{carId}/edit")
     public String processUpdateForm(@Validated Car car, BindingResult bindingResult, Client client, ModelMap model) {
         if(bindingResult.hasErrors()) {
             car.setOwner(client);
-            model.put("car", car);
-            return "cars/createOrUpdateCarForm";
+            model.put(AttributesName.CAR, car);
+            return ViewsName.CREATE_OR_UPDATE_CAR_FORM;
         } else {
             client.addCar(car);
             this.carService.save(car);

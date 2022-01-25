@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.beans.support.MutableSortDefinition;
 import org.springframework.beans.support.PropertyComparator;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
@@ -27,7 +26,6 @@ public class Car extends BaseEntity{
     private String model;
 
     @Column(name = "date_of_production")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateOfProduction;
 
     @ManyToOne

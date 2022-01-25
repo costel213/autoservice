@@ -4,6 +4,8 @@ import com.costelmitrea.autoservice.model.Experience;
 import com.costelmitrea.autoservice.model.Mechanic;
 import com.costelmitrea.autoservice.services.ExperienceService;
 import com.costelmitrea.autoservice.services.MechanicService;
+import com.costelmitrea.autoservice.util.AttributesName;
+import com.costelmitrea.autoservice.util.ViewsName;
 import com.costelmitrea.autoservice.validator.ExperienceValidator;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -25,7 +27,7 @@ public class ExperienceController {
         this.mechanicService = mechanicService;
     }
 
-    @ModelAttribute("mechanic")
+    @ModelAttribute(AttributesName.MECHANIC)
     public Mechanic findMechanic(@PathVariable("mechanicId") Long mechanicId) {
         return this.mechanicService.findById(mechanicId);
     }
@@ -44,8 +46,8 @@ public class ExperienceController {
     public String initCreationForm(Mechanic mechanic, ModelMap model) {
         Experience experience = new Experience();
         mechanic.addExperience(experience);
-        model.put("exper", experience);
-        return "experience/createOrUpdateExperienceForm";
+        model.put(AttributesName.EXPERIENCE, experience);
+        return ViewsName.CREATE_OR_UPDATE_EXPERIENCE_FORM;
     }
 
     @PostMapping("/experience/new")
@@ -56,8 +58,8 @@ public class ExperienceController {
         }
         mechanic.addExperience(experience);
         if(bindingResult.hasErrors()){
-            model.put("exper", experience);
-            return "experience/createOrUpdateExperienceForm";
+            model.put(AttributesName.EXPERIENCE, experience);
+            return ViewsName.CREATE_OR_UPDATE_EXPERIENCE_FORM;
         } else {
             this.experienceService.save(experience);
             return "redirect:/mechanics/{mechanicId}";
@@ -67,16 +69,17 @@ public class ExperienceController {
     @GetMapping("/experience/{experienceId}/edit")
     public String initUpdateForm(@PathVariable("experienceId") Long experienceId, ModelMap model) {
         Experience experience = this.experienceService.findById(experienceId);
-        model.put("exper", experience);
-        return "experience/createOrUpdateExperienceForm";
+        model.put(AttributesName.EXPERIENCE, experience);
+        return ViewsName.CREATE_OR_UPDATE_EXPERIENCE_FORM;
     }
 
     @PostMapping("/experience/{experienceId}/edit")
-    public String processUpdateForm(@Validated Experience experience, BindingResult bindingResult, Mechanic mechanic, ModelMap model) {
+    public String processUpdateForm(@Validated Experience experience, BindingResult bindingResult,
+                                    Mechanic mechanic, ModelMap model) {
         if(bindingResult.hasErrors()) {
             experience.setMechanic(mechanic);
-            model.put("exper", experience);
-            return "experience/createOrUpdateExperienceForm";
+            model.put(AttributesName.EXPERIENCE, experience);
+            return ViewsName.CREATE_OR_UPDATE_EXPERIENCE_FORM;
         } else {
             mechanic.addExperience(experience);
             this.experienceService.save(experience);
