@@ -69,8 +69,8 @@ INSERT IGNORE INTO mechanic_specialties VALUES (4, 6);
 INSERT IGNORE INTO mechanic_specialties VALUES (5, 7);
 INSERT IGNORE INTO mechanic_specialties VALUES (6, 4);
 
-INSERT IGNORE INTO users VALUES(1, 'Default', 'User', '$2a$12$SWzid6MFMVt4RXyneWcJzezy0rLGWVU58Owsew8Cdtc7hq0APH8ni', 'user');
-INSERT IGNORE INTO users VALUES(2, 'Default', 'Admin', '$2a$12$YTovQFfneGyyJ5dLVa7kCOswj65pHwd8h0hkYcgBlpHjd9MSWii5.', 'admin');
+INSERT IGNORE INTO users VALUES(1, 'Default', 'User', '$2a$12$llT9X1EWfphdHhO5d09YMeJtUDgClx1lqJbV6BVfkjXClA0w9vlmG', 'defaultUser');
+INSERT IGNORE INTO users VALUES(2, 'Default', 'Admin', '$2a$12$cOdrh.2MnYmlyHCnqHU9eOXz33dE.3tLxUN.cofatfATQX9jxOs2W', 'defaultAdmin');
 
 INSERT IGNORE INTO roles VALUES(1, 'ROLE_USER');
 INSERT IGNORE INTO roles VALUES(2, 'ROLE_ADMIN');
