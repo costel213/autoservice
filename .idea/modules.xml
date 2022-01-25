@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/autos.iml" filepath="$PROJECT_DIR$/.idea/autos.iml" />
       <module fileurl="file://$PROJECT_DIR$/autos-data/autos-data.iml" filepath="$PROJECT_DIR$/autos-data/autos-data.iml" />
       <module fileurl="file://$PROJECT_DIR$/autos-web/autos-web.iml" filepath="$PROJECT_DIR$/autos-web/autos-web.iml" />
+      <module fileurl="file://$PROJECT_DIR$/autoservice.iml" filepath="$PROJECT_DIR$/autoservice.iml" />
     </modules>
   </component>
 </project>

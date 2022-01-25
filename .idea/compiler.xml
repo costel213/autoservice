@@ -15,6 +15,7 @@
       <module name="autos" target="11" />
       <module name="autos-data" target="11" />
       <module name="autos-web" target="11" />
+      <module name="autoservice" target="11" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
