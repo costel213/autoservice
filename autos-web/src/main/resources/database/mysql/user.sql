@@ -4,4 +4,4 @@ ALTER DATABASE autoservice
   DEFAULT CHARACTER SET utf8
   DEFAULT COLLATE utf8_general_ci;
 
-GRANT ALL PRIVILEGES ON autoservice.* TO 'costel'@'%';
+GRANT ALL PRIVILEGES ON autoservice.* TO 'autoservice'@'%';
